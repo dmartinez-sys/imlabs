@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de privacidad — educabot</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1B5E; --blue: #2563EB; --ink: #0d0f14;
+  --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+  --gray-400: #94a3b8; --gray-500: #64748b; --white: #fff;
+}
+body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 72px; background: rgba(255,255,255,.95); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,.06); display: flex; align-items: center;
+}
+.nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 32px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--gray-400); text-decoration: none; transition: color .15s; }
+.back-link:hover { color: var(--ink); }
+
+main { padding-top: 112px; padding-bottom: 96px; }
+.container { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+.page-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: block; }
+h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -.04em; margin-bottom: 8px; }
+.page-date { font-size: 13px; color: var(--gray-400); margin-bottom: 40px; }
+
+/* TABS */
+.tabs { display: flex; gap: 4px; background: var(--gray-100); padding: 4px; border-radius: 12px; width: fit-content; margin-bottom: 40px; }
+.tab-btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 9px;
+  border: none; cursor: pointer; transition: all .15s; background: transparent; color: var(--gray-500);
+}
+.tab-btn.active { background: white; color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+
+/* SUMMARY CARDS */
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.info-card { border: 1px solid var(--gray-100); border-radius: 16px; padding: 24px; }
+.card-icon {
+  width: 36px; height: 36px; border-radius: 10px; background: #eff6ff;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+}
+.card-icon svg { color: var(--blue); }
+.card-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 6px; }
+.card-text { font-size: 13.5px; color: #334155; line-height: 1.55; }
+.rights-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pill { font-size: 11px; font-weight: 600; background: var(--gray-100); color: var(--gray-500); padding: 4px 10px; border-radius: 100px; }
+
+.notice-box { background: var(--gray-50); border-radius: 14px; padding: 20px 24px; font-size: 13px; color: var(--gray-500); line-height: 1.65; margin-bottom: 0; }
+.notice-box a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.notice-box a:hover { text-decoration: underline; }
+
+/* FULL TEXT */
+.section-block { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid var(--gray-100); }
+.section-block:last-child { border-bottom: none; }
+.section-block h2 { font-size: 18px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 12px; }
+.section-block p { font-size: 14px; color: #334155; line-height: 1.7; margin-bottom: 12px; }
+.section-block p:last-child { margin-bottom: 0; }
+.highlight-row { display: flex; gap: 12px; background: var(--gray-50); border-radius: 12px; padding: 14px 16px; margin-bottom: 8px; }
+.highlight-row span.arrow { color: var(--blue); font-weight: 800; flex-shrink: 0; }
+.highlight-row .text { font-size: 13.5px; color: #334155; line-height: 1.5; }
+.contact-box { background: var(--gray-50); border-radius: 12px; padding: 16px 20px; font-size: 13.5px; color: #334155; line-height: 1.8; margin-bottom: 16px; }
+.contact-box a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.blue-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.blue-pill { font-size: 11px; font-weight: 600; background: #eff6ff; color: var(--blue); border: 1px solid #dbeafe; padding: 5px 12px; border-radius: 100px; }
+
+footer { border-top: 1px solid var(--gray-100); padding: 28px 32px; }
+.footer-inner { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 13px; color: var(--gray-400); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--ink); }
+
+@media (max-width: 600px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html"><img src="logo_educabot_crop.png" alt="educabot" style="height:44px;width:auto"></a>
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Volver
+    </a>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <span class="page-eyebrow">Legal</span>
+    <h1>Política de privacidad</h1>
+    <p class="page-date">Última actualización: enero de 2025</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('resumen', this)">Resumen</button>
+      <button class="tab-btn" onclick="showTab('ampliada', this)">Información ampliada</button>
+    </div>
+
+    <!-- RESUMEN -->
+    <div id="panel-resumen">
+      <div class="cards-grid">
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="9" width="18" height="13" rx="2"/><path d="M8 9V7a4 4 0 018 0v2"/></svg>
+          </div>
+          <div class="card-label">Responsable</div>
+          <div class="card-text"><strong>IM DIGITAL MARKETING EXPERT AGENCY, S.L.</strong> (IM AGENCY)</div>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="card-label">Finalidad</div>
+          <div class="card-text">Facilitar información comercial y asesoramiento sobre servicios propios o de terceros.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="card-label">Legitimación</div>
+          <div class="card-text">Consentimiento del interesado, excepto en los casos con interés legítimo.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="card-label">Destinatarios</div>
+          <div class="card-text">Datos tratados por IM AGENCY, salvo comunicación a terceros necesaria para el servicio.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div class="card-label">Conservación</div>
+          <div class="card-text">Hasta la finalización del servicio o mientras exista obligación legal de conservarlos.</div>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="card-label">Sus derechos</div>
+          <div class="rights-pills">
+            <span class="pill">Acceso</span><span class="pill">Rectificación</span>
+            <span class="pill">Supresión</span><span class="pill">Limitación</span>
+            <span class="pill">Portabilidad</span><span class="pill">Oposición</span>
+          </div>
+        </div>
+      </div>
+      <div class="notice-box">
+        Puede presentar una reclamación ante la Autoridad de Control española en
+        <a href="https://www.aepd.es" target="_blank">www.aepd.es</a>.
+        Para ejercer sus derechos contacte en
+        <a href="mailto:agenciad@tresce.com">agenciad@tresce.com</a>
+        o al <strong style="color:#334155">931 593 373</strong>.
+      </div>
+    </div>
+
+    <!-- AMPLIADA -->
+    <div id="panel-ampliada" style="display:none">
+      <div class="section-block">
+        <h2>1. Derecho de información</h2>
+        <p>De conformidad con la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán incorporados al sistema de tratamiento titularidad de <strong>IM DIGITAL MARKETING EXPERT AGENCY, S.L.</strong> (IM AGENCY), CIF B62574645, con domicilio en C/ Can Rabìa 3-5, Planta 4ª, 08017 Barcelona.</p>
+        <p>Los datos serán conservados durante el plazo estrictamente necesario para cumplir con los preceptos mencionados.</p>
+      </div>
+      <div class="section-block">
+        <h2>2. Finalidad</h2>
+        <p>Los datos son recabados por IM AGENCY para el sostenimiento y desarrollo de los servicios que proporciona, así como para facilitarle información comercial sobre servicios, propios o de terceros, que pudieran ser de su interés.</p>
+      </div>
+      <div class="section-block">
+        <h2>3. Carácter voluntario de la información</h2>
+        <p>La información solicitada en los formularios de contacto es la estrictamente necesaria para atender su petición, siendo voluntaria la comunicación de información adicional.</p>
+      </div>
+      <div class="section-block">
+        <h2>4. Veracidad de los datos</h2>
+        <p>Mientras no nos comunique lo contrario, entenderemos que sus datos no han sido modificados. IM AGENCY se compromete a tratar los datos de manera lícita, transparente, exacta y actualizada, suprimiéndolos o rectificándolos sin dilación cuando sean inexactos.</p>
+      </div>
+      <div class="section-block">
+        <h2>5. Consentimiento del usuario</h2>
+        <p>El envío de datos mediante los formularios supone el consentimiento expreso al tratamiento automatizado para las siguientes finalidades:</p>
+        <div class="highlight-row"><span class="arrow">—</span><div class="text"><strong>Gestión comercial:</strong> Responder a solicitudes de información y enviar novedades.</div></div>
+        <div class="highlight-row"><span class="arrow">—</span><div class="text"><strong>Solicitantes de empleo:</strong> Gestión de candidaturas y procesos de selección.</div></div>
+        <div class="highlight-row"><span class="arrow">—</span><div class="text"><strong>Alumnos:</strong> Gestión académica, prácticas, bolsa de trabajo, facturación y acceso al área privada.</div></div>
+      </div>
+      <div class="section-block">
+        <h2>6. Ejercicio de derechos</h2>
+        <p>Puede ejercer los siguientes derechos dirigiendo su solicitud a:</p>
+        <div class="contact-box">
+          <strong>Email:</strong> <a href="mailto:agenciad@tresce.com">agenciad@tresce.com</a><br>
+          <strong>Teléfono:</strong> 931 593 373
+        </div>
+        <div class="blue-pills">
+          <span class="blue-pill">Saber si tratamos sus datos</span>
+          <span class="blue-pill">Acceso</span><span class="blue-pill">Rectificación</span>
+          <span class="blue-pill">Supresión</span><span class="blue-pill">Limitación</span>
+          <span class="blue-pill">Portabilidad</span><span class="blue-pill">Revocar consentimiento</span>
+          <span class="blue-pill">Reclamación ante AEPD</span>
+        </div>
+      </div>
+      <div class="section-block">
+        <h2>7. Seguridad</h2>
+        <p>IM AGENCY ha adoptado todas las medidas técnicas y organizativas necesarias para garantizar la seguridad de los datos y evitar su acceso no autorizado, pérdida o alteración.</p>
+      </div>
+      <div class="section-block">
+        <h2>8. Cookies</h2>
+        <p>Este sitio web utiliza cookies para mejorar la experiencia del usuario. Consulte nuestra <a href="politica-de-cookies.html" style="color:var(--blue);font-weight:600">política de cookies</a> para más información.</p>
+      </div>
+      <div class="section-block">
+        <h2>9. Modificaciones</h2>
+        <p>IM AGENCY se reserva el derecho a modificar esta política para adaptarla a cambios legislativos o del sector. Le recomendamos revisarla periódicamente.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <img src="logo_educabot_crop.png" alt="educabot" style="height:36px;width:auto">
+    <div class="footer-links">
+      <a href="politica-de-cookies.html">Cookies</a>
+      <a href="mailto:hola@imlabs.es">hola@imlabs.es</a>
+    </div>
+    <span style="font-size:12px;color:var(--gray-300)">© 2025 imlabs</span>
+  </div>
+</footer>
+
+<script>
+function showTab(name, btn) {
+  document.getElementById('panel-resumen').style.display = name === 'resumen' ? 'block' : 'none';
+  document.getElementById('panel-ampliada').style.display = name === 'ampliada' ? 'block' : 'none';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

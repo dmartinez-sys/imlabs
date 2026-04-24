@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D1B5E"></stop>
+      <stop offset="100%" stop-color="#2563EB"></stop>
+    </linearGradient>
+  </defs>
+  
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#g)"></rect>
+  
+  <circle cx="32" cy="32" r="8" stroke="white" stroke-width="2.2" fill="none"></circle>
+  <line x1="32" y1="14" x2="32" y2="19" stroke="white" stroke-width="2.2" stroke-linecap="round"></line>
+  <line x1="32" y1="45" x2="32" y2="50" stroke="white" stroke-width="2.2" stroke-linecap="round"></line>
+  <line x1="14" y1="32" x2="19" y2="32" stroke="white" stroke-width="2.2" stroke-linecap="round"></line>
+  <line x1="45" y1="32" x2="50" y2="32" stroke="white" stroke-width="2.2" stroke-linecap="round"></line>
+  <line x1="19.51" y1="19.51" x2="23.04" y2="23.04" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="40.96" y1="40.96" x2="44.49" y2="44.49" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="44.49" y1="19.51" x2="40.96" y2="23.04" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="23.04" y1="40.96" x2="19.51" y2="44.49" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  
+  <text x="78" y="38" font-family="&#39;Plus Jakarta Sans&#39;, sans-serif" font-weight="800" font-size="30" letter-spacing="-1.2" fill="#0D1B5E">im<tspan fill="#2563EB">labs</tspan></text>
+  
+  <text x="79" y="54" font-family="&#39;Plus Jakarta Sans&#39;, sans-serif" font-weight="700" font-size="9" letter-spacing="2.8" fill="#94a3b8">INTELLIGENT MARKETING</text>
+</svg>
