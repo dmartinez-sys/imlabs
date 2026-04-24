@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Blog — educabot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1B5E; --blue: #2563EB; --ink: #0d0f14;
+  --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+  --gray-400: #94a3b8; --gray-500: #64748b; --white: #ffffff;
+  --green: #10b981; --red: #ef4444;
+}
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50); color: var(--ink); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+/* LOGIN */
+#login-screen {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px;
+}
+.login-card {
+  background: white; border: 1px solid var(--gray-200); border-radius: 20px;
+  padding: 48px 40px; width: 100%; max-width: 400px; text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,.06);
+}
+.login-card img { height: 80px; width: auto; margin-bottom: 24px; }
+.login-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.login-card p { font-size: 14px; color: var(--gray-500); margin-bottom: 32px; }
+.login-card input {
+  width: 100%; border: 1.5px solid var(--gray-200); border-radius: 10px;
+  padding: 12px 16px; font-size: 15px; font-family: inherit; margin-bottom: 12px;
+  outline: none; transition: border-color .15s;
+}
+.login-card input:focus { border-color: var(--blue); }
+.login-card button {
+  width: 100%; background: var(--navy); color: white; font-family: inherit;
+  font-size: 15px; font-weight: 700; padding: 13px; border: none; border-radius: 10px;
+  cursor: pointer; transition: background .15s;
+}
+.login-card button:hover { background: var(--blue); }
+.login-error { font-size: 13px; color: var(--red); margin-top: 10px; display: none; }
+
+/* ADMIN */
+#admin-screen { display: none; }
+header {
+  background: white; border-bottom: 1px solid var(--gray-200);
+  padding: 0 32px; height: 72px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 10;
+}
+header img { height: 60px; width: auto; }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+.btn { font-family: inherit; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 9px; cursor: pointer; transition: all .15s; border: none; }
+.btn-primary { background: var(--blue); color: white; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-outline { background: white; color: var(--gray-600); border: 1.5px solid var(--gray-200); }
+.btn-outline:hover { border-color: var(--gray-400); }
+.btn-danger { background: white; color: var(--red); border: 1.5px solid #fecaca; }
+.btn-danger:hover { background: #fef2f2; }
+.btn-success { background: var(--green); color: white; }
+.btn-success:hover { background: #059669; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 32px; display: grid; grid-template-columns: 340px 1fr; gap: 24px; }
+
+/* POSTS LIST */
+.panel { background: white; border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; }
+.panel-header { padding: 20px 24px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
+.panel-title { font-size: 14px; font-weight: 700; }
+.post-list { overflow-y: auto; max-height: calc(100vh - 200px); }
+.post-item {
+  padding: 16px 24px; border-bottom: 1px solid var(--gray-50);
+  cursor: pointer; transition: background .1s; display: flex; align-items: flex-start; gap: 12px;
+}
+.post-item:hover { background: var(--gray-50); }
+.post-item.active { background: #eff6ff; border-left: 3px solid var(--blue); }
+.post-item-info { flex: 1; min-width: 0; }
+.post-item-title { font-size: 14px; font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-item-meta { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+.badge { display: inline-flex; align-items: center; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px; letter-spacing: .04em; flex-shrink: 0; margin-top: 2px; }
+.badge-pub { background: #ecfdf5; color: #059669; }
+.badge-draft { background: var(--gray-100); color: var(--gray-500); }
+
+/* EDITOR */
+.editor-panel { display: flex; flex-direction: column; gap: 0; }
+.editor-body { padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+.field label { display: block; font-size: 12px; font-weight: 700; color: var(--gray-500); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+.field input, .field textarea, .field select {
+  width: 100%; border: 1.5px solid var(--gray-200); border-radius: 10px;
+  padding: 11px 14px; font-size: 14px; font-family: inherit; outline: none;
+  transition: border-color .15s; background: white; color: var(--ink);
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--blue); }
+.field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+#content-field { min-height: 320px; font-size: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.editor-footer {
+  padding: 16px 28px; border-top: 1px solid var(--gray-100);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--gray-50); border-radius: 0 0 16px 16px;
+}
+.editor-footer-left { display: flex; gap: 8px; }
+
+.empty-editor { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; color: var(--gray-400); gap: 12px; }
+.empty-editor svg { opacity: .3; }
+.empty-editor p { font-size: 14px; }
+
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 100;
+  background: var(--ink); color: white; font-size: 13px; font-weight: 600;
+  padding: 12px 20px; border-radius: 10px;
+  opacity: 0; transform: translateY(8px); transition: all .2s; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: var(--green); }
+.toast.error { background: var(--red); }
+
+@media (max-width: 800px) { .main { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <img src="logo_educabot_crop.png" alt="educabot">
+    <h2>Panel de administración</h2>
+    <p>Introduce la contraseña para acceder</p>
+    <input type="password" id="pwd-input" placeholder="Contraseña" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Entrar</button>
+    <div class="login-error" id="login-error">Contraseña incorrecta</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-screen">
+  <header>
+    <img src="logo_educabot_crop.png" alt="educabot">
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="newPost()">+ Nuevo post</button>
+      <button class="btn btn-outline" onclick="doLogout()">Salir</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <!-- Lista -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Artículos</span>
+        <span id="post-count" style="font-size:12px;color:var(--gray-400)"></span>
+      </div>
+      <div class="post-list" id="post-list">
+        <div style="padding:40px;text-align:center;color:var(--gray-400);font-size:13px">Cargando...</div>
+      </div>
+    </div>
+
+    <!-- Editor -->
+    <div class="panel editor-panel" id="editor-panel">
+      <div class="empty-editor" id="empty-editor">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p>Selecciona un artículo o crea uno nuevo</p>
+      </div>
+      <div id="editor-form" style="display:none;flex-direction:column;flex:1">
+        <div class="editor-body">
+          <div class="field">
+            <label>Título</label>
+            <input type="text" id="f-title" placeholder="Título del artículo" oninput="autoSlug()">
+          </div>
+          <div class="field">
+            <label>Slug (URL)</label>
+            <input type="text" id="f-slug" placeholder="url-del-articulo">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Categoría</label>
+              <select id="f-category">
+                <option>Captación</option>
+                <option>IA</option>
+                <option>Automatización</option>
+                <option>CRM</option>
+                <option>General</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Tiempo de lectura</label>
+              <input type="text" id="f-reading" placeholder="5 min">
+            </div>
+          </div>
+          <div class="field">
+            <label>Resumen (extracto)</label>
+            <textarea id="f-excerpt" rows="2" placeholder="Breve descripción que aparece en el listado..."></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Imagen destacada</label>
+              <input type="file" id="f-image-file" accept="image/*" onchange="previewImage(this)">
+              <div id="f-image-preview" style="margin-top:8px;display:none">
+                <img id="f-image-thumb" style="width:100%;height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--gray-200)">
+                <button type="button" onclick="removeImage()" style="font-size:11px;color:var(--red);background:none;border:none;cursor:pointer;margin-top:4px;font-family:inherit">Eliminar imagen</button>
+              </div>
+              <input type="hidden" id="f-image">  
+            </div>
+            <div class="field">
+              <label>Fecha de publicación</label>
+              <input type="datetime-local" id="f-published-at">
+            </div>
+          </div>
+          <div class="field">
+            <label>Contenido del artículo</label>
+            <textarea id="content-field" id="f-content" placeholder="Escribe aquí el contenido completo del artículo..."></textarea>
+          </div>
+        </div>
+        <div class="editor-footer">
+          <div class="editor-footer-left">
+            <button class="btn btn-danger" id="btn-delete" onclick="deletePost()" style="display:none">Eliminar</button>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span id="save-status" style="font-size:12px;color:var(--gray-400)"></span>
+            <button class="btn btn-outline" onclick="savePost(false)">Guardar borrador</button>
+            <button class="btn btn-success" onclick="savePost(true)">Publicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://jldvhpycybeqqyfyjsjt.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_sNRLhyvjFMbxT42b8BWcRA_BvWeEB88';
+const ADMIN_PASSWORD = 'educabot2025'; // Cambia esta contraseña
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let posts = [];
+let currentId = null;
+
+// AUTH
+function doLogin() {
+  const pwd = document.getElementById('pwd-input').value;
+  if (pwd === ADMIN_PASSWORD) {
+    sessionStorage.setItem('admin', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    loadPosts();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem('admin');
+  location.reload();
+}
+if (sessionStorage.getItem('admin')) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-screen').style.display = 'block';
+  loadPosts();
+}
+
+// POSTS
+async function loadPosts() {
+  const { data } = await sb.from('posts').select('*').order('created_at', { ascending: false });
+  posts = data || [];
+  renderList();
+}
+
+function renderList() {
+  document.getElementById('post-count').textContent = `${posts.length} artículos`;
+  const list = document.getElementById('post-list');
+  if (!posts.length) {
+    list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--gray-400);font-size:13px">Sin artículos todavía</div>';
+    return;
+  }
+  list.innerHTML = posts.map(p => `
+    <div class="post-item ${p.id === currentId ? 'active' : ''}" onclick="openPost('${p.id}')">
+      <div class="post-item-info">
+        <div class="post-item-title">${p.title || 'Sin título'}</div>
+        <div class="post-item-meta">${p.category || ''} · ${formatDate(p.created_at)}</div>
+      </div>
+      <span class="badge ${p.published ? 'badge-pub' : 'badge-draft'}">${p.published ? 'Publicado' : 'Borrador'}</span>
+    </div>
+  `).join('');
+}
+
+function openPost(id) {
+  currentId = id;
+  const p = posts.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('f-title').value = p.title || '';
+  document.getElementById('f-slug').value = p.slug || '';
+  document.getElementById('f-category').value = p.category || 'General';
+  document.getElementById('f-reading').value = p.reading_time || '';
+  document.getElementById('f-excerpt').value = p.excerpt || '';
+  document.getElementById('f-image').value = p.image_url || '';
+  if (p.image_url) {
+    document.getElementById('f-image-thumb').src = p.image_url;
+    document.getElementById('f-image-preview').style.display = 'block';
+  } else {
+    document.getElementById('f-image-preview').style.display = 'none';
+  }
+  const d = p.published_at ? new Date(p.published_at).toISOString().slice(0,16) : '';
+  document.getElementById('f-published-at').value = d;
+  document.getElementById('content-field').value = p.content || '';
+  document.getElementById('btn-delete').style.display = 'block';
+  showEditor();
+  renderList();
+}
+
+function newPost() {
+  currentId = null;
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-slug').value = '';
+  document.getElementById('f-category').value = 'General';
+  document.getElementById('f-reading').value = '5 min';
+  document.getElementById('f-excerpt').value = '';
+  document.getElementById('f-image').value = '';
+  document.getElementById('f-image-file').value = '';
+  document.getElementById('f-image-preview').style.display = 'none';
+  document.getElementById('f-published-at').value = new Date().toISOString().slice(0,16);
+  document.getElementById('content-field').value = '';
+  document.getElementById('btn-delete').style.display = 'none';
+  showEditor();
+}
+
+function showEditor() {
+  document.getElementById('empty-editor').style.display = 'none';
+  document.getElementById('editor-form').style.display = 'flex';
+  document.getElementById('save-status').textContent = '';
+}
+
+function autoSlug() {
+  if (currentId) return; // no tocar slug en edición
+  const title = document.getElementById('f-title').value;
+  document.getElementById('f-slug').value = title
+    .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
+}
+
+async function savePost(publish) {
+  const title = document.getElementById('f-title').value.trim();
+  const slug = document.getElementById('f-slug').value.trim();
+  if (!title || !slug) { showToast('Título y slug son obligatorios', 'error'); return; }
+
+  // Upload image if file selected
+  const imageFile = document.getElementById('f-image-file').files[0];
+  if (imageFile) {
+    const url = await uploadImage(imageFile);
+    if (url) document.getElementById('f-image').value = url;
+  }
+
+  const payload = {
+    title,
+    slug,
+    category: document.getElementById('f-category').value,
+    reading_time: document.getElementById('f-reading').value,
+    excerpt: document.getElementById('f-excerpt').value,
+    content: document.getElementById('content-field').value,
+    image_url: document.getElementById('f-image').value || null,
+    published_at: document.getElementById('f-published-at').value ? new Date(document.getElementById('f-published-at').value).toISOString() : new Date().toISOString(),
+    published: publish,
+    updated_at: new Date().toISOString(),
+  };
+
+  let error;
+  if (currentId) {
+    ({ error } = await sb.from('posts').update(payload).eq('id', currentId));
+  } else {
+    const { data, error: e } = await sb.from('posts').insert(payload).select().single();
+    error = e;
+    if (data) currentId = data.id;
+  }
+
+  if (error) { showToast('Error: ' + error.message, 'error'); return; }
+  showToast(publish ? '¡Post publicado!' : 'Borrador guardado', 'success');
+  document.getElementById('save-status').textContent = 'Guardado ' + new Date().toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('btn-delete').style.display = 'block';
+  await loadPosts();
+}
+
+async function deletePost() {
+  if (!currentId) return;
+  if (!confirm('¿Eliminar este artículo? No se puede deshacer.')) return;
+  const { error } = await sb.from('posts').delete().eq('id', currentId);
+  if (error) { showToast('Error: ' + error.message, 'error'); return; }
+  currentId = null;
+  document.getElementById('empty-editor').style.display = 'flex';
+  document.getElementById('editor-form').style.display = 'none';
+  showToast('Artículo eliminado', 'success');
+  await loadPosts();
+}
+
+function previewImage(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('f-image-thumb').src = e.target.result;
+    document.getElementById('f-image-preview').style.display = 'block';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function removeImage() {
+  document.getElementById('f-image').value = '';
+  document.getElementById('f-image-file').value = '';
+  document.getElementById('f-image-preview').style.display = 'none';
+}
+
+async function uploadImage(file) {
+  const ext = file.name.split('.').pop();
+  const filename = `${Date.now()}.${ext}`;
+  const { data, error } = await sb.storage.from('images').upload(filename, file, { upsert: true });
+  if (error) { showToast('Error subiendo imagen: ' + error.message, 'error'); return null; }
+  const { data: urlData } = sb.storage.from('images').getPublicUrl(filename);
+  return urlData.publicUrl;
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 2800);
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+</script>
+</body>
+</html>
