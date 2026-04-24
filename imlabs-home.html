@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>imlabs — Intelligent Marketing. Aplicaciones con IA para empresas.</title>
+<meta name="description" content="imlabs desarrolla aplicaciones con inteligencia artificial que explotan el máximo potencial de tu empresa. Automatiza, capta y crece con IA.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://imlabs.es/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://imlabs.es/">
+<meta property="og:title" content="imlabs — Intelligent Marketing con IA">
+<meta property="og:description" content="Aplicaciones con inteligencia artificial que explotan el máximo potencial de tu empresa.">
+<meta property="og:locale" content="es_ES">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1B5E;
+  --blue: #2563EB;
+  --blue-faint: #EFF6FF;
+  --ink: #0d0f14;
+  --g50: #f8fafc; --g100: #f1f5f9; --g200: #e2e8f0;
+  --g400: #94a3b8; --g500: #64748b; --g600: #475569;
+  --white: #fff;
+  --font: 'Plus Jakarta Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 80px; background: rgba(255,255,255,.95); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,.06); display: flex; align-items: center;
+}
+.nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 32px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 20px; font-weight: 800; color: var(--navy); letter-spacing: -.04em; text-decoration: none; }
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--g500); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--navy); color: white !important; font-size: 13px; font-weight: 700 !important; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background .15s !important; }
+.nav-cta:hover { background: var(--blue) !important; }
+
+/* HERO */
+.hero {
+  padding-top: 140px; padding-bottom: 100px;
+  padding-left: 32px; padding-right: 32px;
+  max-width: 1120px; margin: 0 auto;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-faint); border: 1px solid #DBEAFE;
+  border-radius: 100px; padding: 6px 16px;
+  font-size: 11px; font-weight: 700; color: var(--blue);
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px;
+}
+.hero-eyebrow::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--blue); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+.hero h1 {
+  font-size: clamp(40px, 5vw, 72px); font-weight: 800;
+  line-height: 1.02; letter-spacing: -.05em; margin-bottom: 24px;
+  max-width: 860px; margin-left: auto; margin-right: auto;
+}
+.hero h1 em { font-style: normal; color: var(--blue); }
+.hero p {
+  font-size: 20px; color: var(--g500); line-height: 1.6; font-weight: 400;
+  max-width: 560px; margin: 0 auto 40px;
+}
+.hero-ctas { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: white; font-weight: 700; font-size: 15px;
+  padding: 14px 32px; border-radius: 12px; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,99,235,.3); transition: all .15s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,99,235,.35); }
+.btn-ghost { color: var(--g500); font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .15s; }
+.btn-ghost:hover { color: var(--ink); }
+
+/* MARQUEE LOGOS */
+.logos-strip { border-top: 1px solid var(--g100); border-bottom: 1px solid var(--g100); padding: 24px 0; overflow: hidden; }
+.logos-label { text-align: center; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--g200); margin-bottom: 18px; }
+.logos-row { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; padding: 0 32px; }
+.logo-item { font-size: 14px; font-weight: 800; color: #cbd5e1; letter-spacing: -.01em; }
+
+/* PROBLEM */
+.problem { background: var(--navy); padding: 96px 32px; }
+.problem-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+.section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 20px; }
+.problem .section-eyebrow { color: #60a5fa; }
+.problem h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 800; color: white; letter-spacing: -.04em; line-height: 1.1; margin-bottom: 24px; }
+.problem p { font-size: 18px; color: #93c5fd; line-height: 1.65; max-width: 600px; margin: 0 auto; }
+
+/* PRODUCTS */
+.products { padding: 96px 32px; }
+.products-inner { max-width: 1120px; margin: 0 auto; }
+.section-header { margin-bottom: 56px; }
+.section-header .section-eyebrow { color: var(--blue); }
+.section-header h2 { font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; margin-bottom: 16px; }
+.section-header p { font-size: 17px; color: var(--g500); max-width: 480px; line-height: 1.6; }
+
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.product-card {
+  border: 1px solid var(--g100); border-radius: 20px; padding: 32px;
+  transition: all .2s; cursor: pointer; text-decoration: none; color: inherit;
+  display: block; position: relative; overflow: hidden;
+}
+.product-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--blue); transform: scaleX(0); transform-origin: left;
+  transition: transform .2s;
+}
+.product-card:hover { border-color: var(--g200); box-shadow: 0 12px 40px rgba(0,0,0,.08); transform: translateY(-3px); }
+.product-card:hover::before { transform: scaleX(1); }
+.product-card.featured { border-color: var(--navy); background: #fafbff; }
+.product-card.featured::before { transform: scaleX(1); background: var(--navy); }
+
+.product-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--blue); background: var(--blue-faint); padding: 4px 10px; border-radius: 100px;
+  margin-bottom: 16px;
+}
+.product-tag.live { color: #059669; background: #ecfdf5; }
+.product-tag.live::before { content:''; width:6px; height:6px; border-radius:50%; background:#10b981; animation: pulse 2s infinite; }
+.product-tag.soon { color: var(--g500); background: var(--g100); }
+
+.product-card h3 { font-size: 20px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 10px; }
+.product-card p { font-size: 14px; color: var(--g500); line-height: 1.65; margin-bottom: 20px; }
+.product-link { font-size: 13px; font-weight: 700; color: var(--blue); display: flex; align-items: center; gap: 6px; }
+
+/* WHY */
+.why { padding: 96px 32px; background: var(--g50); border-top: 1px solid var(--g100); }
+.why-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.why-features { display: flex; flex-direction: column; gap: 24px; }
+.why-feature { display: flex; gap: 16px; }
+.why-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--blue-faint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.why-feature h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.why-feature p { font-size: 13.5px; color: var(--g500); line-height: 1.6; }
+
+.why-visual {
+  background: var(--navy); border-radius: 20px; padding: 40px;
+  color: white; position: relative; overflow: hidden;
+}
+.why-visual::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(37,99,235,.2);
+}
+.why-stat { margin-bottom: 32px; }
+.why-stat-val { font-size: 48px; font-weight: 800; letter-spacing: -.05em; color: white; }
+.why-stat-val span { color: #60a5fa; }
+.why-stat-label { font-size: 14px; color: #93c5fd; margin-top: 4px; }
+.why-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 24px 0; }
+
+/* CTA SECTION */
+.cta-section { padding: 96px 32px; text-align: center; }
+.cta-inner { max-width: 640px; margin: 0 auto; }
+.cta-inner h2 { font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; margin-bottom: 16px; }
+.cta-inner p { font-size: 17px; color: var(--g500); line-height: 1.6; margin-bottom: 36px; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 24px; border-bottom: 1px solid var(--g50); }
+.footer-logo { font-size: 18px; font-weight: 800; color: var(--navy); letter-spacing: -.04em; }
+.footer-logo span { color: var(--blue); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--g400); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--ink); }
+.footer-copy { text-align: center; font-size: 12px; color: var(--g300); padding-top: 20px; }
+
+/* ANIMATIONS */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .why-inner { grid-template-columns: 1fr; gap: 40px; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .hero, .problem, .products, .why, .cta-section, footer { padding-left: 20px; padding-right: 20px; }
+  .products-grid { grid-template-columns: 1fr; }
+  .footer-top { flex-direction: column; gap: 16px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="logo_imlabs.svg" alt="imlabs" style="height:66px;width:auto"></a>
+    <div class="nav-links">
+      <a href="#productos">Productos</a>
+      <a href="#por-que">Por qué imlabs</a>
+      <a href="/cdn-cgi/l/email-protection#0f6760636e4f6662636e6d7c216a7c">Contacto</a>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#21494e4d4061484c4d4043520f4452" class="nav-cta">Hablar con nosotros</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero fade-up">
+    <div class="hero-eyebrow">Intelligent Marketing</div>
+    <h1>Explota el máximo potencial<br>de tu empresa <em>con IA.</em></h1>
+    <p>imlabs desarrolla aplicaciones con inteligencia artificial que automatizan, captan y hacen crecer empresas que quieren ir más rápido que su competencia.</p>
+    <div class="hero-ctas">
+      <a href="#productos" class="btn-primary">
+        Ver nuestras aplicaciones
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#294146454869404445484b5a074c5a" class="btn-ghost">Hablar con el equipo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-strip">
+  <div class="logos-label">Tecnologías que usamos</div>
+  <div class="logos-row">
+    <span class="logo-item">OpenAI</span>
+    <span class="logo-item">Claude</span>
+    <span class="logo-item">HubSpot</span>
+    <span class="logo-item">Supabase</span>
+    <span class="logo-item">Zapier</span>
+    <span class="logo-item">Google Cloud</span>
+    <span class="logo-item">WhatsApp API</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem fade-up">
+  <div class="problem-inner">
+    <span class="section-eyebrow">El contexto</span>
+    <h2>Tu competencia ya está usando IA. La pregunta es cuánto te lleva de ventaja.</h2>
+    <p>Las empresas que integran IA en sus procesos crecen más rápido, con menos recursos y mejor margen. No es una tendencia futura: está pasando ahora mismo.</p>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="productos" class="products">
+  <div class="products-inner">
+    <div class="section-header fade-up">
+      <span class="section-eyebrow">Nuestras aplicaciones</span>
+      <h2>IA aplicada a problemas reales de negocio.</h2>
+      <p>Cada producto de imlabs resuelve un problema concreto con tecnología de inteligencia artificial lista para usar.</p>
+    </div>
+    <div class="products-grid">
+
+      <!-- educabot -->
+      <a href="/educabot/" class="product-card featured fade-up">
+        <div class="product-tag live">En producción</div>
+        <h3>educabot</h3>
+        <p>Agente de IA para centros educativos que automatiza la captación de alumnos: atiende candidatos 24/7, los cualifica y agenda citas en Admisiones sin intervención humana.</p>
+        <div class="product-link">
+          Ver educabot
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </a>
+
+      <!-- socialbot -->
+      <div class="product-card fade-up">
+        <div class="product-tag soon">Próximamente</div>
+        <h3>socialbot</h3>
+        <p>Publica en todas tus redes sociales en automático. La IA genera el contenido, lo adapta a cada plataforma y lo programa. Multiplica por 100 la capacidad de tu equipo de contenidos.</p>
+        <div class="product-link" style="color:var(--g400)">En desarrollo</div>
+      </div>
+
+      <!-- seobot -->
+      <div class="product-card fade-up">
+        <div class="product-tag soon">Próximamente</div>
+        <h3>seobot</h3>
+        <p>Dashboard de SEO con IA que mide, interpreta y actúa. Detecta oportunidades, genera contenido optimizado y automatiza acciones según los resultados de tu posicionamiento.</p>
+        <div class="product-link" style="color:var(--g400)">En desarrollo</div>
+      </div>
+
+      <!-- leadbot -->
+      <div class="product-card fade-up">
+        <div class="product-tag soon">Próximamente</div>
+        <h3>leadbot</h3>
+        <p>Agente de IA para equipos de ventas B2B. Cualifica leads, prepara propuestas personalizadas y hace seguimiento automático hasta cerrar la oportunidad.</p>
+        <div class="product-link" style="color:var(--g400)">En desarrollo</div>
+      </div>
+
+      <!-- supportbot -->
+      <div class="product-card fade-up">
+        <div class="product-tag soon">Próximamente</div>
+        <h3>supportbot</h3>
+        <p>Agente de IA para atención al cliente. Resuelve el 80% de las consultas de forma autónoma, escala las complejas al equipo humano y aprende de cada interacción.</p>
+        <div class="product-link" style="color:var(--g400)">En desarrollo</div>
+      </div>
+
+      <!-- databot -->
+      <div class="product-card fade-up">
+        <div class="product-tag soon">Próximamente</div>
+        <h3>databot</h3>
+        <p>Convierte tus datos en decisiones. Dashboard de analytics con IA que interpreta tus métricas de negocio, detecta anomalías y genera informes ejecutivos automáticos.</p>
+        <div class="product-link" style="color:var(--g400)">En desarrollo</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="por-que" class="why">
+  <div class="why-inner">
+    <div class="fade-up">
+      <span class="section-eyebrow" style="color:var(--blue)">Por qué imlabs</span>
+      <h2 style="font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:16px;margin-top:16px">No consultamos. Construimos y entregamos.</h2>
+      <p style="font-size:16px;color:var(--g500);line-height:1.65;margin-bottom:40px">Nuestro modelo es diferente: desarrollamos aplicaciones con IA específicas para problemas de negocio concretos, las ponemos en producción y las mejoramos con datos reales.</p>
+      <div class="why-features">
+        <div class="why-feature">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div>
+            <h4>Listo en días, no en meses</h4>
+            <p>Nuestras aplicaciones están en producción en menos de una semana. Sin proyectos de 6 meses ni consultorías interminables.</p>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h4>Resultados medibles</h4>
+            <p>Cada aplicación tiene métricas claras desde el día uno. Sabes exactamente qué ROI estás obteniendo.</p>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div>
+            <h4>Mejora continua con datos reales</h4>
+            <p>Nuestros agentes de IA aprenden de los datos de tu empresa y mejoran automáticamente con el tiempo.</p>
+          </div>
+        </div>
+        <div class="why-feature">
+          <div class="why-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <h4>Equipo especializado en IA aplicada</h4>
+            <p>No somos una agencia generalista. Toda nuestra experiencia está en desarrollar aplicaciones de IA que generan negocio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual fade-up">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:24px">imlabs en números</div>
+      <div class="why-stat">
+        <div class="why-stat-val">+<span>25</span></div>
+        <div class="why-stat-label">años dedicados al marketing y la tecnología</div>
+      </div>
+      <hr class="why-divider">
+      <div class="why-stat">
+        <div class="why-stat-val">+<span>3.000</span></div>
+        <div class="why-stat-label">proyectos completados para empresas de todos los tamaños</div>
+      </div>
+      <hr class="why-divider">
+      <div class="why-stat">
+        <div class="why-stat-val"><span>98</span>%</div>
+        <div class="why-stat-label">de clientes satisfechos — y los conocemos a todos por su nombre</div>
+      </div>
+      <hr class="why-divider">
+      <div class="why-stat" style="margin-bottom:0">
+        <div class="why-stat-val" style="font-size:28px;line-height:1.2"><span>Cercanos</span></div>
+        <div class="why-stat-label">No somos una gran corporación. Tratamos a cada cliente como si fuera el único.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up">
+  <div class="cta-inner">
+    <span class="section-eyebrow" style="color:var(--blue)">¿Hablamos?</span>
+    <h2>Tu empresa tiene problemas que la IA puede resolver hoy.</h2>
+    <p>Cuéntanos tu caso. En 30 minutos te decimos si tenemos una solución y cómo encaja en tu operativa.</p>
+    <a href="#" onclick="openChat();return false;" class="btn-primary" style="margin:0 auto;display:inline-flex">
+      Contactar con imlabs
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <img src="logo_imlabs.svg" alt="imlabs" style="height:44px;width:auto">
+      <div class="footer-links">
+        <a href="/educabot/">educabot</a>
+        <a href="/politica-de-privacidad.html">Privacidad</a>
+        <a href="/politica-de-cookies.html">Cookies</a>
+        <a href="/cdn-cgi/l/email-protection#1776707279747e76577e7a397273627476637e7879"><span class="__cf_email__" data-cfemail="58393f3d363b3139183135763d3c2d3b392c313736">[email&#160;protected]</span></a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2025 imlabs — IM Digital Marketing Expert Agency, S.L. · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
