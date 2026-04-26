@@ -75,6 +75,13 @@ nav {
 }
 .dropdown-menu a:hover { background: var(--g100); color: var(--ink); }
 
+/* CHAT OVERLAY */
+#chat-overlay { display:none; position:fixed; inset:0; background:rgba(13,27,94,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); z-index:9997; align-items:center; justify-content:center; }
+#chat-overlay.active { display:flex; }
+#chat-overlay-close { position:fixed; top:24px; right:24px; width:44px; height:44px; background:white; border:none; border-radius:50%; font-size:22px; line-height:1; cursor:pointer; z-index:9999; box-shadow:0 4px 16px rgba(0,0,0,.15); display:none; align-items:center; justify-content:center; color:var(--ink); transition:background .15s; }
+#chat-overlay.active #chat-overlay-close { display:flex; }
+#chat-overlay-close:hover { background:var(--g100); }
+
 /* COOKIE */
 #cookie { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: white; border-top: 1px solid var(--g200); box-shadow: 0 -4px 24px rgba(0,0,0,.06); transform: translateY(100%); transition: transform .4s cubic-bezier(.16,1,.3,1); padding: 16px 32px; }
 #cookie.show { transform: translateY(0); }
@@ -466,6 +473,11 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
   </div>
 </footer>
 
+<!-- CHAT OVERLAY -->
+<div id="chat-overlay" onclick="if(event.target===this)closeChatOverlay()">
+  <button id="chat-overlay-close" onclick="closeChatOverlay()">×</button>
+</div>
+
 <!-- COOKIE -->
 <div id="cookie">
   <div class="cookie-inner">
@@ -484,9 +496,26 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
 function openChat() {
+  document.getElementById('chat-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
   const btn = document.querySelector('#crm-chat-widget button, [class*="chat"] button, [class*="widget"] button');
   if (btn) btn.click();
   else document.querySelector('[id*="crm"] *')?.click();
+  setTimeout(centerWidget, 500);
+}
+function centerWidget() {
+  const sel = '[id*="crm-chat"] > div:last-child,[class*="chat-window"],[class*="widget-window"],[id*="crm"] iframe';
+  const el = document.querySelector(sel);
+  if (el) {
+    const target = el.parentElement || el;
+    target.style.cssText += ';position:fixed!important;bottom:auto!important;right:auto!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;z-index:9998!important;';
+  }
+}
+function closeChatOverlay() {
+  document.getElementById('chat-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+  const close = document.querySelector('[aria-label*="lose"],[class*="close-btn"],[class*="minimize"]');
+  if (close) close.click();
 }
 
 function closeCookie() {
