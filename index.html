@@ -46,6 +46,32 @@ nav {
 .nav-cta { background: var(--navy); color: white !important; font-size: 13px; font-weight: 700 !important; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background .15s !important; }
 .nav-cta:hover { background: var(--blue) !important; }
 
+/* DROPDOWN */
+.nav-dropdown { position: relative; }
+.nav-dropdown > button {
+  font-size: 14px; font-weight: 500; color: var(--g500);
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: flex; align-items: center; gap: 4px; transition: color .15s;
+}
+.nav-dropdown > button:hover { color: var(--ink); }
+.nav-dropdown > button svg { transition: transform .2s; }
+.nav-dropdown:hover > button svg,
+.nav-dropdown.open > button svg { transform: rotate(180deg); }
+.dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 12px); left: 0;
+  background: white; border: 1px solid rgba(0,0,0,.08); border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.10); min-width: 160px; padding: 6px;
+  z-index: 200;
+}
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.open .dropdown-menu { display: block; }
+.dropdown-menu a {
+  display: block; padding: 9px 14px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: var(--g500);
+  text-decoration: none; transition: background .12s, color .12s;
+}
+.dropdown-menu a:hover { background: var(--g100); color: var(--ink); }
+
 /* HERO */
 .hero {
   padding-top: 140px; padding-bottom: 100px;
@@ -202,7 +228,15 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
   <div class="nav-inner">
     <a href="#" class="nav-logo"><img src="logo_imlabs.svg" alt="imlabs" style="height:66px;width:auto"></a>
     <div class="nav-links">
-      <a href="#productos">Productos</a>
+      <div class="nav-dropdown">
+        <button>
+          Productos
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown-menu">
+          <a href="educabot/index.html">Educabot</a>
+        </div>
+      </div>
       <a href="#por-que">Por qué imlabs</a>
       <a href="/cdn-cgi/l/email-protection#0f6760636e4f6662636e6d7c216a7c">Contacto</a>
     </div>
