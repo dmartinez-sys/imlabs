@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada — imlabs</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico?v=10" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1B5E; --blue: #2563EB; --ink: #0d0f14;
+  --g50: #f8fafc; --g100: #f1f5f9; --g200: #e2e8f0;
+  --g300: #cbd5e1; --g400: #94a3b8; --g500: #64748b;
+  --white: #fff; --font: 'Plus Jakarta Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 80px; background: rgba(255,255,255,.95); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,.06); display: flex; align-items: center;
+}
+.nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 32px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-cta { background: var(--navy); color: white; font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background .15s; }
+.nav-cta:hover { background: var(--blue); }
+
+main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 140px 32px 80px; }
+.content { text-align: center; max-width: 480px; }
+.error-code { font-size: clamp(80px, 15vw, 140px); font-weight: 800; letter-spacing: -.06em; color: var(--g100); line-height: 1; margin-bottom: 24px; }
+h1 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; letter-spacing: -.03em; margin-bottom: 12px; }
+p { font-size: 16px; color: var(--g500); line-height: 1.6; margin-bottom: 32px; }
+.btn-home { display: inline-block; background: var(--navy); color: white; font-family: var(--font); font-size: 15px; font-weight: 700; padding: 13px 28px; border-radius: 12px; text-decoration: none; transition: background .15s; }
+.btn-home:hover { background: var(--blue); }
+
+footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 24px; border-bottom: 1px solid var(--g50); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--g400); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--ink); }
+.footer-copy { text-align: center; font-size: 12px; color: var(--g300); padding-top: 20px; }
+
+@media (max-width: 600px) {
+  .footer-top { flex-direction: column; gap: 16px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/"><img src="/logo_imlabs.svg" alt="imlabs" style="height:66px;width:auto"></a>
+    <a href="/" class="nav-cta">Volver al inicio</a>
+  </div>
+</nav>
+
+<main>
+  <div class="content">
+    <div class="error-code">404</div>
+    <h1>Página no encontrada</h1>
+    <p>La página que buscas no existe o ha sido movida. Vuelve al inicio y encuentra lo que necesitas.</p>
+    <a href="/" class="btn-home">Volver al inicio</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <img src="/logo_imlabs.svg" alt="imlabs" style="height:44px;width:auto">
+      <div class="footer-links">
+        <a href="/educabot/">educabot</a>
+        <a href="/politica-de-privacidad.html">Privacidad</a>
+        <a href="/politica-de-cookies.html">Cookies</a>
+        <a href="mailto:agencia@im.education">agencia@im.education</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2025 imlabs — IM Digital Marketing Expert Agency, S.L. · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+</body>
+</html>
