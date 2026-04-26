@@ -72,7 +72,13 @@ h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -.04em
 .blue-pills { display: flex; flex-wrap: wrap; gap: 6px; }
 .blue-pill { font-size: 11px; font-weight: 600; background: #eff6ff; color: var(--blue); border: 1px solid #dbeafe; padding: 5px 12px; border-radius: 100px; }
 
-footer { border-top: 1px solid var(--gray-100); padding: 28px 32px; }
+footer { border-top: 1px solid var(--gray-100); padding: 36px 32px; }
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 24px; border-bottom: 1px solid var(--gray-50); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--gray-400); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--ink); }
+.footer-copy { text-align: center; font-size: 12px; color: var(--gray-300); padding-top: 20px; }
 .footer-inner { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .footer-links { display: flex; gap: 20px; }
 .footer-links a { font-size: 13px; color: var(--gray-400); text-decoration: none; transition: color .15s; }
@@ -88,7 +94,7 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 32px; }
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html"><img src="logo_educabot_crop.png" alt="educabot" style="height:44px;width:auto"></a>
+    <a href="index.html"><img src="logo_imlabs.svg" alt="imlabs" style="height:66px;width:auto"></a>
     <a href="index.html" class="back-link">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Volver
@@ -225,12 +231,16 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 32px; }
 
 <footer>
   <div class="footer-inner">
-    <img src="logo_educabot_crop.png" alt="educabot" style="height:36px;width:auto">
-    <div class="footer-links">
-      <a href="politica-de-cookies.html">Cookies</a>
-      <a href="mailto:hola@imlabs.es">hola@imlabs.es</a>
+    <div class="footer-top">
+      <img src="logo_imlabs.svg" alt="imlabs" style="height:44px;width:auto">
+      <div class="footer-links">
+        <a href="/educabot/">educabot</a>
+        <a href="/politica-de-privacidad.html">Privacidad</a>
+        <a href="/politica-de-cookies.html">Cookies</a>
+        <a href="mailto:agencia@im.education">agencia@im.education</a>
+      </div>
     </div>
-    <span style="font-size:12px;color:var(--gray-300)">© 2025 imlabs</span>
+    <div class="footer-copy">© 2025 imlabs — IM Digital Marketing Expert Agency, S.L. · Todos los derechos reservados</div>
   </div>
 </footer>
 
