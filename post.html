@@ -109,7 +109,7 @@ footer { border-top: 1px solid var(--gray-100); padding: 36px 32px; }
       <a href="educabot/index.html#pricing">Precios</a>
       <a href="blog.html">Blog</a>
     </div>
-    <a href="educabot/index.html#demo" class="nav-cta">Agendar demo</a>
+    <a href="#" onclick="openChat();return false;" class="nav-cta">Agendar demo</a>
   </div>
 </nav>
 
@@ -206,7 +206,7 @@ async function loadPost() {
       <div class="cta-box">
         <h3>¿Quieres ver educabot en acción?</h3>
         <p>Agenda una demo gratuita y te mostramos cómo automatizar la captación de tu centro.</p>
-        <a href="educabot/index.html#demo">Agendar demo gratuita</a>
+        <a href="#" onclick="openChat();return false;">Agendar demo gratuita</a>
       </div>
     </div>
   `;
@@ -219,6 +219,12 @@ function show(id) {
 }
 
 loadPost();
+
+function openChat() {
+  const btn = document.querySelector('#crm-chat-widget button, [class*="chat"] button, [class*="widget"] button');
+  if (btn) btn.click();
+  else document.querySelector('[id*="crm"] *')?.click();
+}
 
 function closeCookie() {
   localStorage.setItem('cookies', '1');

@@ -255,9 +255,9 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
       </div>
       <a href="/blog.html">Blog</a>
       <a href="#por-que">Por qué imlabs</a>
-      <a href="/cdn-cgi/l/email-protection#0f6760636e4f6662636e6d7c216a7c">Contacto</a>
+      <a href="#" onclick="openChat();return false;">Contacto</a>
     </div>
-    <a href="/cdn-cgi/l/email-protection#21494e4d4061484c4d4043520f4452" class="nav-cta">Hablar con nosotros</a>
+    <a href="#" onclick="openChat();return false;" class="nav-cta">Hablar con nosotros</a>
   </div>
 </nav>
 
@@ -272,7 +272,7 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
         Ver nuestras aplicaciones
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="/cdn-cgi/l/email-protection#294146454869404445484b5a074c5a" class="btn-ghost">Hablar con el equipo →</a>
+      <a href="#" onclick="openChat();return false;" class="btn-ghost">Hablar con el equipo →</a>
     </div>
   </div>
 </section>
@@ -482,6 +482,12 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+function openChat() {
+  const btn = document.querySelector('#crm-chat-widget button, [class*="chat"] button, [class*="widget"] button');
+  if (btn) btn.click();
+  else document.querySelector('[id*="crm"] *')?.click();
+}
 
 function closeCookie() {
   localStorage.setItem('cookies', '1');
