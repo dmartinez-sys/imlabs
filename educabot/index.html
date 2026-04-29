@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -662,19 +663,16 @@ footer {
       <h2>Un panel diseñado para Admisiones.</h2>
       <p>Vista única de todos los leads, scoring visible de un vistazo y gestión de citas integrada.</p>
     </div>
-    <div class="screen-main placeholder-shimmer fade-up">
-      <div class="overlay">
-        <div class="play-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 4.5l14 7.5-14 7.5V4.5z" fill="var(--ink)"/></svg>
-        </div>
-        <span class="screen-caption">Vídeo demostración — próximamente</span>
-      </div>
+    <div class="screen-main fade-up" style="background:#000">
+      <iframe src="https://www.youtube.com/embed/g-ERLywdkx4?rel=0&modestbranding=1&showinfo=0" title="educabot Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"></iframe>
     </div>
     <div class="screens-row fade-up">
-      <div class="screen-sm placeholder-shimmer">
+      <div class="screen-sm">
+        <img src="screen_leads.png" alt="Panel de leads" style="width:100%;height:100%;object-fit:cover;object-position:top">
         <div class="screen-label">Panel de leads</div>
       </div>
-      <div class="screen-sm placeholder-shimmer">
+      <div class="screen-sm">
+        <img src="screen_scoring.png" alt="Vista de scoring" style="width:100%;height:100%;object-fit:cover;object-position:top">
         <div class="screen-label">Vista de scoring</div>
       </div>
     </div>
@@ -691,14 +689,17 @@ footer {
   <div class="pricing-grid fade-up">
     <div class="price-card featured">
       <div class="price-tag">Más popular</div>
+      <div style="position:absolute;top:-14px;right:28px;background:#f59e0b;color:#78350f;font-size:10px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:.08em;text-transform:uppercase">Oferta lanzamiento</div>
       <div class="price-plan">Chatbot Web</div>
       <div class="price-amount">
+        <span style="font-size:18px;color:#cbd5e1;text-decoration:line-through;font-weight:500">€149</span>
         <span class="price-main">€99</span>
         <span class="price-period">/mes</span>
       </div>
-      <div class="price-activation">+ <strong>€149</strong> activación única</div>
+      <div class="price-activation">+ <strong>€149</strong> activación única <s style="color:#cbd5e1;font-size:13px">€249</s></div>
       <ul class="price-features">
         <li>Chatbot con IA en tu web, activo 24/7</li>
+        <li>Hasta 3.000 conversaciones/mes incluidas</li>
         <li>Captación de nombre, email y teléfono</li>
         <li>Scoring automático del 1 al 10</li>
         <li>Reserva de citas en Google Calendar con Meet</li>
@@ -710,14 +711,17 @@ footer {
       <a href="#demo" class="price-btn price-btn-primary" onclick="openChat();return false;">Agendar demo</a>
     </div>
     <div class="price-card">
+      <div style="position:absolute;top:-14px;left:28px;background:#f59e0b;color:#78350f;font-size:10px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:.08em;text-transform:uppercase">Oferta lanzamiento</div>
       <div class="price-plan">Chatbot Web + WhatsApp</div>
       <div class="price-amount">
+        <span style="font-size:18px;color:#cbd5e1;text-decoration:line-through;font-weight:500">€249</span>
         <span class="price-main">€149</span>
         <span class="price-period">/mes</span>
       </div>
-      <div class="price-activation">+ <strong>€249</strong> activación única</div>
+      <div class="price-activation">+ <strong>€249</strong> activación única <s style="color:#cbd5e1;font-size:13px">€495</s></div>
       <ul class="price-features">
         <li>Todo lo incluido en Chatbot Web</li>
+        <li>Hasta 3.000 conversaciones/mes incluidas</li>
         <li>Chatbot activo en WhatsApp Business</li>
         <li>Panel unificado para leads de web y WhatsApp</li>
         <li>Misma cualificación y agendado desde ambos canales</li>
