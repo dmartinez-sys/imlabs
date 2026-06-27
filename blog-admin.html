@@ -74,15 +74,15 @@ header img { height: 52px; width: auto; }
 .btn-preview:hover { background: #d97706; }
 
 /* ── SECCIONES ── */
-.section { display: none; max-width: 1280px; margin: 0 auto; padding: 28px 32px; }
+.section { display: none; }
 .section.active { display: block; }
 
 /* ── BLOG: layout 2 columnas ── */
-.blog-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+.blog-layout { display: grid; grid-template-columns: 300px 1fr; gap: 16px; height: calc(100vh - 104px); }
 .panel { background: white; border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; }
 .panel-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
 .panel-title { font-size: 13px; font-weight: 700; }
-.post-list { overflow-y: auto; max-height: calc(100vh - 180px); }
+.post-list { overflow-y: auto; flex: 1; }
 .post-item {
   padding: 14px 20px; border-bottom: 1px solid var(--gray-50);
   cursor: pointer; transition: background .1s; display: flex; align-items: flex-start; gap: 10px;
@@ -106,7 +106,7 @@ header img { height: 52px; width: auto; }
 }
 .editor-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
 
-.editor-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; max-height: calc(100vh - 260px); }
+.editor-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; flex: 1; }
 .tab-content { display: none; }
 .tab-content.active { display: flex; flex-direction: column; gap: 16px; }
 
@@ -380,7 +380,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
 .main-header-sub { font-size: 13px; color: var(--gray-400); margin-top: 1px; }
 .main-header-actions { display: flex; gap: 10px; align-items: center; }
 
-.main-body { flex: 1; padding: 28px 32px; }
+.main-body { flex: 1; padding: 20px 24px; }
 
 /* SECTIONS */
 .section { display: none; }
@@ -577,7 +577,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
 
         <!-- ── WEB ── -->
         <div class="section" id="section-web">
-          <div style="max-width:860px;margin:0 auto">
+          <div style="width:100%">
             <div id="web-cms-content"><div style="text-align:center;padding:60px;color:var(--gray-400)">Cargando contenido...</div></div>
           </div>
         </div>
