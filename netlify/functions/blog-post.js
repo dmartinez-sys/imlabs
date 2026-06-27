@@ -3,7 +3,7 @@
 // Google recibe el contenido ya renderizado — sin JS necesario
 
 const SUPABASE_URL = 'https://jldvhpycybeqqyfyjsjt.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZHZocHljeWJlcXF5Znlqc2p0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU1OTAyNDUsImV4cCI6MjA2MTE2NjI0NX0.t3JAhJQFl6MxWrn_4PkdlJiD-SiS9l0xYfN1JD7_ZuE';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZHZocHljeWJlcXF5Znlqc2p0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NTE0NDEsImV4cCI6MjA5MjUyNzQ0MX0.On7QpPnXyVs8WnoOrBtsbnkaOGgc-POJUK-LEziLVRY';
 
 exports.handler = async (event) => {
   // Extraer slug de la URL: /blog/mi-post → mi-post
