@@ -249,6 +249,53 @@ header img { height: 52px; width: auto; }
   .blog-layout { grid-template-columns: 1fr; }
   .section { padding: 16px; }
 }
+
+/* ── CRM LEADS ── */
+.crm-layout { display: flex; flex-direction: column; gap: 20px; }
+.crm-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+.crm-stat { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 16px 20px; }
+.crm-stat-value { font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1; }
+.crm-stat-label { font-size: 11px; color: var(--gray-400); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.crm-filters { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 14px 18px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.crm-filters input, .crm-filters select { font-family: inherit; font-size: 13px; padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 8px; outline: none; transition: border-color .15s; flex: 1; min-width: 140px; max-width: 220px; }
+.crm-filters input:focus, .crm-filters select:focus { border-color: var(--blue); }
+.crm-table-wrap { background: white; border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--gray-50); }
+th { text-align: left; padding: 11px 16px; font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: .05em; text-transform: uppercase; border-bottom: 1px solid var(--gray-200); white-space: nowrap; }
+td { padding: 13px 16px; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--gray-50); }
+.td-name { font-weight: 700; color: var(--navy); }
+.td-sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+.estado-badge { display: inline-flex; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+.estado-nuevo { background: #EFF6FF; color: #2563EB; }
+.estado-contactado { background: #FFFBEB; color: #D97706; }
+.estado-en_proceso { background: #F0FDF4; color: #16A34A; }
+.estado-cerrado { background: #D1FAE5; color: #065F46; }
+.estado-descartado { background: var(--gray-100); color: var(--gray-400); }
+.estado-select { font-family: inherit; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; border: 1.5px solid var(--gray-200); cursor: pointer; outline: none; }
+.btn-sm { font-family: inherit; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 6px; border: 1.5px solid var(--gray-200); background: white; cursor: pointer; color: var(--gray-600); transition: all .15s; text-decoration: none; display: inline-block; }
+.btn-sm:hover { border-color: var(--blue); color: var(--blue); }
+.crm-empty { text-align: center; padding: 60px 20px; color: var(--gray-400); }
+
+/* LEAD MODAL */
+.lead-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,27,53,.5); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
+.lead-modal-overlay.open { display: flex; }
+.lead-modal { background: white; border-radius: 16px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+.lead-modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: flex-start; position: sticky; top: 0; background: white; z-index: 1; }
+.lead-modal-title { font-size: 17px; font-weight: 800; color: var(--navy); }
+.lead-modal-sub { font-size: 13px; color: var(--gray-400); margin-top: 2px; }
+.lead-modal-body { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 16px; }
+.lead-section-title { font-size: 10px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.lead-section { background: var(--gray-50); border-radius: 10px; padding: 14px; }
+.lead-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+.lead-row:last-child { margin-bottom: 0; }
+.lead-label { font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: .04em; min-width: 100px; padding-top: 1px; }
+.lead-value { font-size: 13px; color: var(--ink); flex: 1; line-height: 1.5; }
+.lead-value a { color: var(--blue); text-decoration: none; }
+.notas-field { width: 100%; font-family: inherit; font-size: 13px; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 10px 12px; resize: vertical; min-height: 80px; outline: none; }
+.notas-field:focus { border-color: var(--blue); }
 </style>
 </head>
 <body>
@@ -469,12 +516,64 @@ header img { height: 52px; width: auto; }
     </div><!-- /blog-layout -->
   </div><!-- /section-blog -->
 
-  <!-- ── LEADS (placeholder por ahora) ── -->
+  <!-- ── LEADS CRM ── -->
   <div class="section" id="section-leads">
-    <div style="text-align:center;padding:80px 20px;color:var(--gray-400)">
-      <div style="font-size:48px;margin-bottom:16px">👥</div>
-      <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px">CRM de Leads</div>
-      <div style="font-size:14px">Próximamente — aquí verás todos los leads de imlabs.es y educabot unificados.</div>
+    <div class="crm-layout">
+
+      <!-- Stats -->
+      <div class="crm-stats">
+        <div class="crm-stat"><div class="crm-stat-value" id="crm-total">—</div><div class="crm-stat-label">Total leads</div></div>
+        <div class="crm-stat"><div class="crm-stat-value" style="color:#2563EB" id="crm-nuevos">—</div><div class="crm-stat-label">Nuevos</div></div>
+        <div class="crm-stat"><div class="crm-stat-value" style="color:#D97706" id="crm-contactados">—</div><div class="crm-stat-label">Contactados</div></div>
+        <div class="crm-stat"><div class="crm-stat-value" style="color:#16A34A" id="crm-proceso">—</div><div class="crm-stat-label">En proceso</div></div>
+        <div class="crm-stat"><div class="crm-stat-value" style="color:#065F46" id="crm-cerrados">—</div><div class="crm-stat-label">Cerrados</div></div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="crm-filters">
+        <input type="search" id="crm-buscar" placeholder="🔍 Buscar nombre, empresa, email..." oninput="filtrarLeads()">
+        <select id="crm-estado" onchange="filtrarLeads()">
+          <option value="">Todos los estados</option>
+          <option value="nuevo">Nuevo</option>
+          <option value="contactado">Contactado</option>
+          <option value="en_proceso">En proceso</option>
+          <option value="cerrado">Cerrado</option>
+          <option value="descartado">Descartado</option>
+        </select>
+        <select id="crm-sector" onchange="filtrarLeads()">
+          <option value="">Todos los sectores</option>
+        </select>
+        <select id="crm-urgencia" onchange="filtrarLeads()">
+          <option value="">Toda urgencia</option>
+          <option value="inmediata">Inmediata</option>
+          <option value="proximo_mes">Próximo mes</option>
+          <option value="explorando">Explorando</option>
+        </select>
+        <button class="btn btn-outline" onclick="exportarLeadsCSV()" style="white-space:nowrap">⬇ CSV</button>
+        <button class="btn btn-outline" onclick="cargarLeads()" style="white-space:nowrap">↻</button>
+      </div>
+
+      <!-- Tabla -->
+      <div class="crm-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Contacto</th>
+              <th>Empresa</th>
+              <th>Sector</th>
+              <th>Necesidad / Producto</th>
+              <th>Urgencia</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="crm-tbody">
+            <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--gray-400)">Cargando leads...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 
@@ -855,5 +954,193 @@ function formatDate(d) {
   return new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 </script>
+
+<!-- LEAD MODAL -->
+<div class="lead-modal-overlay" id="lead-modal-overlay" onclick="if(event.target===this)cerrarLeadModal()">
+  <div class="lead-modal">
+    <div class="lead-modal-header">
+      <div>
+        <div class="lead-modal-title" id="lead-modal-nombre"></div>
+        <div class="lead-modal-sub" id="lead-modal-sub"></div>
+      </div>
+      <button onclick="cerrarLeadModal()" style="background:var(--gray-100);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;color:var(--gray-500)">✕</button>
+    </div>
+    <div class="lead-modal-body" id="lead-modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ══════ CRM LEADS ══════
+let todosLeads = [];
+let leadActualId = null;
+
+async function cargarLeads() {
+  const tbody = document.getElementById('crm-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--gray-400)">Cargando...</td></tr>';
+
+  const { data, error } = await sb.from('leads').select('*').order('created_at', { ascending: false });
+  if (error) { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--red)">${error.message}</td></tr>`; return; }
+
+  todosLeads = data || [];
+  actualizarStatsLeads();
+  poblarSectorFilter();
+  renderLeads(todosLeads);
+}
+
+function actualizarStatsLeads() {
+  document.getElementById('crm-total').textContent = todosLeads.length;
+  document.getElementById('crm-nuevos').textContent = todosLeads.filter(l => l.estado === 'nuevo').length;
+  document.getElementById('crm-contactados').textContent = todosLeads.filter(l => l.estado === 'contactado').length;
+  document.getElementById('crm-proceso').textContent = todosLeads.filter(l => l.estado === 'en_proceso').length;
+  document.getElementById('crm-cerrados').textContent = todosLeads.filter(l => l.estado === 'cerrado').length;
+}
+
+function poblarSectorFilter() {
+  const sectores = [...new Set(todosLeads.map(l => l.sector).filter(Boolean))].sort();
+  const sel = document.getElementById('crm-sector');
+  const val = sel.value;
+  sel.innerHTML = '<option value="">Todos los sectores</option>';
+  sectores.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+  sel.value = val;
+}
+
+function filtrarLeads() {
+  const buscar = document.getElementById('crm-buscar').value.toLowerCase();
+  const estado = document.getElementById('crm-estado').value;
+  const sector = document.getElementById('crm-sector').value;
+  const urgencia = document.getElementById('crm-urgencia').value;
+  const filtrados = todosLeads.filter(l => {
+    const txt = `${l.nombre||''} ${l.apellidos||''} ${l.empresa||''} ${l.email||''}`.toLowerCase();
+    return (!buscar || txt.includes(buscar)) && (!estado || l.estado === estado) && (!sector || l.sector === sector) && (!urgencia || l.urgencia === urgencia);
+  });
+  renderLeads(filtrados);
+}
+
+function renderLeads(leads) {
+  const tbody = document.getElementById('crm-tbody');
+  if (!leads.length) { tbody.innerHTML = '<tr><td colspan="8"><div class="crm-empty">No hay leads con estos filtros.</div></td></tr>'; return; }
+  const urgMap = { inmediata: '🔴 Inmediata', proximo_mes: '🟡 Próx. mes', explorando: '⚪ Explorando' };
+  tbody.innerHTML = leads.map(l => {
+    const nombre = [l.nombre, l.apellidos].filter(Boolean).join(' ');
+    const fecha = new Date(l.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: '2-digit' });
+    return `<tr>
+      <td>
+        <div class="td-name">${nombre}</div>
+        ${l.cargo ? `<div class="td-sub">${l.cargo}</div>` : ''}
+        <div class="td-sub">${l.email || ''}</div>
+        ${l.telefono ? `<div class="td-sub">📞 ${l.telefono}</div>` : ''}
+      </td>
+      <td>
+        <div style="font-weight:600">${l.empresa || '—'}</div>
+        ${l.tamanyo_empresa ? `<div class="td-sub">${l.tamanyo_empresa} emp.</div>` : ''}
+      </td>
+      <td><span style="font-size:12px">${l.sector || '—'}</span></td>
+      <td>
+        <div style="font-size:12px;color:var(--blue);font-weight:600">${l.producto_interes || '—'}</div>
+        ${l.necesidad ? `<div class="td-sub" style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${l.necesidad}">${l.necesidad}</div>` : ''}
+      </td>
+      <td><span style="font-size:12px">${urgMap[l.urgencia] || '—'}</span></td>
+      <td>
+        <select class="estado-select" onchange="cambiarEstadoLead('${l.id}', this.value, this)">
+          <option value="nuevo" ${l.estado==='nuevo'?'selected':''}>🆕 Nuevo</option>
+          <option value="contactado" ${l.estado==='contactado'?'selected':''}>📞 Contactado</option>
+          <option value="en_proceso" ${l.estado==='en_proceso'?'selected':''}>⚙️ En proceso</option>
+          <option value="cerrado" ${l.estado==='cerrado'?'selected':''}>✅ Cerrado</option>
+          <option value="descartado" ${l.estado==='descartado'?'selected':''}>❌ Descartado</option>
+        </select>
+      </td>
+      <td class="td-sub">${fecha}</td>
+      <td>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          <button class="btn-sm" onclick="verLead('${l.id}')">Ver</button>
+          ${l.email ? `<a href="mailto:${l.email}" class="btn-sm">Email</a>` : ''}
+          ${l.telefono ? `<a href="https://wa.me/${l.telefono.replace(/\D/g,'')}" target="_blank" class="btn-sm">WA</a>` : ''}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function cambiarEstadoLead(id, estado, sel) {
+  const { error } = await sb.from('leads').update({ estado }).eq('id', id);
+  if (error) { showToast('Error al actualizar', 'error'); return; }
+  const lead = todosLeads.find(l => l.id === id);
+  if (lead) lead.estado = estado;
+  actualizarStatsLeads();
+  showToast('Estado actualizado');
+}
+
+function verLead(id) {
+  const l = todosLeads.find(x => x.id === id);
+  if (!l) return;
+  leadActualId = id;
+  const nombre = [l.nombre, l.apellidos].filter(Boolean).join(' ');
+  document.getElementById('lead-modal-nombre').textContent = nombre;
+  document.getElementById('lead-modal-sub').textContent = [l.cargo, l.empresa].filter(Boolean).join(' · ');
+  const urgMap = { inmediata: '🔴 Inmediata', proximo_mes: '🟡 Próximo mes', explorando: '⚪ Explorando' };
+  const presMap = { '<500': '<500€/mes', '500-1000': '500-1.000€/mes', '1000-3000': '1.000-3.000€/mes', '3000+': '+3.000€/mes' };
+  document.getElementById('lead-modal-body').innerHTML = `
+    <div class="lead-section">
+      <div class="lead-section-title">Contacto</div>
+      ${l.email ? `<div class="lead-row"><div class="lead-label">Email</div><div class="lead-value"><a href="mailto:${l.email}">${l.email}</a></div></div>` : ''}
+      ${l.telefono ? `<div class="lead-row"><div class="lead-label">Teléfono</div><div class="lead-value"><a href="https://wa.me/${l.telefono.replace(/\D/g,'')}">${l.telefono}</a></div></div>` : ''}
+      ${l.web ? `<div class="lead-row"><div class="lead-label">Web</div><div class="lead-value"><a href="${l.web}" target="_blank">${l.web}</a></div></div>` : ''}
+    </div>
+    <div class="lead-section">
+      <div class="lead-section-title">Empresa</div>
+      ${l.empresa ? `<div class="lead-row"><div class="lead-label">Empresa</div><div class="lead-value">${l.empresa}</div></div>` : ''}
+      ${l.sector ? `<div class="lead-row"><div class="lead-label">Sector</div><div class="lead-value">${l.sector}</div></div>` : ''}
+      ${l.tamanyo_empresa ? `<div class="lead-row"><div class="lead-label">Tamaño</div><div class="lead-value">${l.tamanyo_empresa} empleados</div></div>` : ''}
+    </div>
+    <div class="lead-section">
+      <div class="lead-section-title">Cualificación</div>
+      ${l.necesidad ? `<div class="lead-row"><div class="lead-label">Necesidad</div><div class="lead-value">${l.necesidad}</div></div>` : ''}
+      ${l.producto_interes ? `<div class="lead-row"><div class="lead-label">Producto</div><div class="lead-value">${l.producto_interes}</div></div>` : ''}
+      ${l.urgencia ? `<div class="lead-row"><div class="lead-label">Urgencia</div><div class="lead-value">${urgMap[l.urgencia]||l.urgencia}</div></div>` : ''}
+      ${l.presupuesto ? `<div class="lead-row"><div class="lead-label">Presupuesto</div><div class="lead-value">${presMap[l.presupuesto]||l.presupuesto}</div></div>` : ''}
+    </div>
+    <div>
+      <div class="lead-section-title" style="margin-bottom:8px">Notas internas</div>
+      <textarea class="notas-field" id="lead-notas" placeholder="Añade notas sobre este lead...">${l.notas||''}</textarea>
+      <button class="btn btn-primary" onclick="guardarNotasLead('${l.id}')" style="margin-top:8px;font-size:12px;padding:7px 14px">Guardar notas</button>
+    </div>
+  `;
+  document.getElementById('lead-modal-overlay').classList.add('open');
+}
+
+async function guardarNotasLead(id) {
+  const notas = document.getElementById('lead-notas').value;
+  const { error } = await sb.from('leads').update({ notas }).eq('id', id);
+  if (error) { showToast('Error al guardar', 'error'); return; }
+  const lead = todosLeads.find(l => l.id === id);
+  if (lead) lead.notas = notas;
+  showToast('Notas guardadas');
+}
+
+function cerrarLeadModal() {
+  document.getElementById('lead-modal-overlay').classList.remove('open');
+}
+
+function exportarLeadsCSV() {
+  const cols = ['nombre','apellidos','email','telefono','empresa','cargo','sector','tamanyo_empresa','web','necesidad','producto_interes','urgencia','presupuesto','estado','notas','created_at'];
+  const header = cols.join(';');
+  const rows = todosLeads.map(l => cols.map(c => `"${(l[c]||'').toString().replace(/"/g,'""')}"`).join(';'));
+  const csv = '\uFEFF' + [header, ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `leads_imlabs_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast('CSV exportado');
+}
+
+// Cargar leads al entrar en la sección
+const _origShowSection = showSection;
+function showSection(name) {
+  _origShowSection.call(this, name);
+  if (name === 'leads') cargarLeads();
+}
+</script>
+
 </body>
 </html>
