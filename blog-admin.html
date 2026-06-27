@@ -638,6 +638,7 @@ function showSection(name) {
   document.getElementById('section-' + name).classList.add('active');
   event.target.classList.add('active');
   document.getElementById('btn-new-post').style.display = name === 'blog' ? 'block' : 'none';
+  if (name === 'leads') cargarLeads();
 }
 
 // ══════════ POSTS ══════════
@@ -1134,12 +1135,7 @@ function exportarLeadsCSV() {
   showToast('CSV exportado');
 }
 
-// Cargar leads al entrar en la sección
-const _origShowSection = showSection;
-function showSection(name) {
-  _origShowSection.call(this, name);
-  if (name === 'leads') cargarLeads();
-}
+// CRM listo
 </script>
 
 </body>
