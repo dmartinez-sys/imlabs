@@ -109,6 +109,11 @@ nav {
 .btn-submit:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
 .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 .form-note { font-size: 11px; color: var(--g400); text-align: center; margin-top: 4px; }
+.gdpr-check { display: flex; align-items: flex-start; gap: 10px; margin-top: 4px; }
+.gdpr-check input[type="checkbox"] { width: 16px; height: 16px; min-width: 16px; margin-top: 2px; accent-color: var(--blue); cursor: pointer; border: none; padding: 0; border-radius: 3px; }
+.gdpr-check label { font-size: 12px; color: var(--g500); line-height: 1.5; cursor: pointer; }
+.gdpr-check label a { color: var(--blue); text-decoration: none; }
+.gdpr-check label a:hover { text-decoration: underline; }
 
 /* SUCCESS */
 .success-state { display: none; padding: 48px 32px; text-align: center; }
@@ -333,6 +338,10 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
           </select>
         </div>
 
+        <div class="gdpr-check">
+          <input type="checkbox" id="f-gdpr" name="gdpr">
+          <label for="f-gdpr">He leído y acepto la <a href="/politica-de-privacidad.html" target="_blank">Política de privacidad</a> y consiento el tratamiento de mis datos para recibir información comercial de imlabs.</label>
+        </div>
         <button class="btn-submit" id="btn-submit" onclick="enviarFormulario()">Solicitar informacion gratuita</button>
         <p class="form-note">Tus datos estan seguros y nunca los compartiremos con terceros.</p>
       </div>
@@ -413,6 +422,11 @@ async function enviarFormulario() {
 
   if (!nombre || !email || !empresa || !sector || !necesidad) {
     showToast("Completa los campos obligatorios", true);
+    return;
+  }
+
+  if (!document.getElementById("f-gdpr").checked) {
+    showToast("Debes aceptar la política de privacidad", true);
     return;
   }
 
