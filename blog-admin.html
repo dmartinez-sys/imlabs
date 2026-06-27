@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Blog — imlabs</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>imlabs Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --navy: #0D1B5E; --blue: #2563EB; --ink: #0d0f14;
@@ -307,11 +307,97 @@ tr:hover td { background: var(--gray-50); }
 .lead-value a { color: var(--blue); text-decoration: none; }
 .notas-field { width: 100%; font-family: inherit; font-size: 13px; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 10px 12px; resize: vertical; min-height: 80px; outline: none; }
 .notas-field:focus { border-color: var(--blue); }
+
+
+/* ── APP LAYOUT ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50); color: var(--ink); min-height: 100vh; display: flex; }
+
+/* LOGIN */
+#login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px; width: 100%; }
+
+/* APP */
+#admin-screen { display: none; width: 100%; min-height: 100vh; }
+.app-layout { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px; min-height: 100vh; background: var(--navy);
+  display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0;
+  z-index: 100; flex-shrink: 0;
+}
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.sidebar-logo img { height: 48px; width: auto; }
+.sidebar-logo-text { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.4); letter-spacing: .08em; text-transform: uppercase; margin-top: 6px; }
+
+.sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
+.sidebar-section-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.3); letter-spacing: .1em; text-transform: uppercase; padding: 12px 8px 6px; }
+
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 10px;
+  font-size: 14px; font-weight: 600; color: rgba(255,255,255,.6);
+  cursor: pointer; border: none; background: none; text-align: left; width: 100%;
+  transition: all .15s; text-decoration: none; position: relative;
+}
+.sidebar-item:hover { background: rgba(255,255,255,.08); color: white; }
+.sidebar-item.active { background: rgba(255,255,255,.12); color: white; }
+.sidebar-item .icon { width: 18px; text-align: center; font-size: 16px; flex-shrink: 0; }
+.sidebar-item .label { flex: 1; }
+.sidebar-badge {
+  background: #EF4444; color: white;
+  font-size: 10px; font-weight: 800;
+  padding: 2px 7px; border-radius: 20px;
+  min-width: 20px; text-align: center;
+}
+.sidebar-badge.green { background: #10B981; }
+.sidebar-badge.blue { background: #3B82F6; }
+
+.sidebar-footer {
+  padding: 12px; border-top: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.sidebar-footer a, .sidebar-footer button {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,.5);
+  text-decoration: none; background: none; border: none; cursor: pointer;
+  width: 100%; transition: all .15s;
+}
+.sidebar-footer a:hover, .sidebar-footer button:hover { color: white; background: rgba(255,255,255,.08); }
+
+/* MAIN */
+.main-content { margin-left: 240px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+.main-header {
+  background: white; border-bottom: 1px solid var(--gray-200);
+  padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.main-header-title { font-size: 16px; font-weight: 700; color: var(--navy); }
+.main-header-sub { font-size: 12px; color: var(--gray-400); margin-top: 1px; }
+.main-header-actions { display: flex; gap: 10px; align-items: center; }
+
+.main-body { flex: 1; padding: 28px 32px; }
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; }
+
+@media (max-width: 768px) {
+  .sidebar { width: 60px; }
+  .sidebar-item .label, .sidebar-badge, .sidebar-logo-text, .sidebar-section-label { display: none; }
+  .sidebar-logo img { height: 32px; }
+  .main-content { margin-left: 60px; }
+  .main-body { padding: 16px; }
+}
 </style>
 </head>
 <body>
 
-<!-- ══════════════ LOGIN ══════════════ -->
+<!-- ══════════ LOGIN ══════════ -->
 <div id="login-screen">
   <div class="login-card">
     <img src="logo_imlabs.svg" alt="imlabs" onerror="this.style.display='none'">
@@ -319,295 +405,186 @@ tr:hover td { background: var(--gray-50); }
     <p>Introduce la contraseña para acceder</p>
     <input type="password" id="login-pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()" id="login-btn">Entrar</button>
-    <div class="login-error" id="login-error">Email o contraseña incorrectos</div>
+    <div class="login-error" id="login-error">Contraseña incorrecta</div>
   </div>
 </div>
 
-<!-- ══════════════ ADMIN ══════════════ -->
+<!-- ══════════ APP ══════════ -->
 <div id="admin-screen">
-  <header>
-    <div style="display:flex;align-items:center;gap:4px">
-      <img src="logo_imlabs.svg" alt="imlabs" onerror="this.style.display='none'">
-      <nav class="nav-tabs">
-        <button class="nav-tab active" onclick="showSection('blog')">✍️ Blog</button>
-        <button class="nav-tab" onclick="showSection('leads')">👥 Leads</button>
-        <button class="nav-tab" onclick="showSection('web')">🌐 Web</button>
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="logo_imlabs.svg" alt="imlabs" onerror="this.style.display='none'">
+        <div class="sidebar-logo-text">Admin Panel</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Contenido</div>
+
+        <button class="sidebar-item active" id="nav-blog" onclick="showSection('blog')">
+          <span class="icon">✍</span>
+          <span class="label">Blog</span>
+          <span class="sidebar-badge blue" id="badge-blog">—</span>
+        </button>
+
+        <button class="sidebar-item" id="nav-leads" onclick="showSection('leads')">
+          <span class="icon">👥</span>
+          <span class="label">Leads</span>
+          <span class="sidebar-badge" id="badge-leads">—</span>
+        </button>
+
+        <button class="sidebar-item" id="nav-web" onclick="showSection('web')">
+          <span class="icon">🌐</span>
+          <span class="label">Web</span>
+        </button>
       </nav>
-    </div>
-    <div class="header-actions">
-      <button class="btn btn-primary" id="btn-new-post" onclick="newPost()">+ Nuevo post</button>
-      <button class="btn btn-outline" onclick="doLogout()">Salir</button>
-    </div>
-  </header>
 
-  <!-- ── BLOG ── -->
-  <div class="section active" id="section-blog">
-    <div class="blog-layout">
-
-      <!-- Lista de posts -->
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">Artículos</span>
-          <span id="post-count" style="font-size:11px;color:var(--gray-400)"></span>
-        </div>
-        <div class="post-list" id="post-list">
-          <div style="padding:40px;text-align:center;color:var(--gray-400);font-size:13px">Cargando...</div>
-        </div>
+      <div class="sidebar-footer">
+        <a href="https://imlabs.es" target="_blank">
+          <span>↗</span> Ver web
+        </a>
+        <button onclick="doLogout()">
+          <span>←</span> Salir
+        </button>
       </div>
+    </aside>
 
-      <!-- Editor -->
-      <div class="panel editor-panel" id="editor-panel">
-        <!-- Estado vacío -->
-        <div class="empty-editor" id="empty-editor">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" opacity=".3"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <p>Selecciona un artículo o crea uno nuevo</p>
-        </div>
+    <!-- MAIN -->
+    <div class="main-content">
 
-        <!-- Formulario -->
-        <div id="editor-form" style="display:none;flex-direction:column;flex:1">
-          <!-- Tabs del editor -->
-          <div class="editor-tabs">
-            <button class="editor-tab active" onclick="switchEditorTab('contenido', this)">Contenido</button>
-            <button class="editor-tab" onclick="switchEditorTab('seo', this)">SEO</button>
-            <button class="editor-tab" onclick="switchEditorTab('imagen', this)">Imagen</button>
-          </div>
-
-          <div class="editor-body">
-
-            <!-- TAB: CONTENIDO -->
-            <div class="tab-content active" id="tab-contenido">
-              <div class="field">
-                <label>Título <span style="color:var(--red)">*</span></label>
-                <input type="text" id="f-title" placeholder="Título del artículo" oninput="onTitleInput()">
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label>Slug (URL)</label>
-                  <input type="text" id="f-slug" placeholder="url-del-articulo" oninput="updateSEOPreview()">
-                  <div class="field-hint">imlabs.es/blog/<span id="slug-preview" style="color:var(--blue)">tu-slug</span></div>
-                </div>
-                <div class="field">
-                  <label>Categoría</label>
-                  <select id="f-category">
-                    <option>Captación</option>
-                    <option>IA</option>
-                    <option>Automatización</option>
-                    <option>CRM</option>
-                    <option>General</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label>Tiempo de lectura</label>
-                  <input type="text" id="f-reading" placeholder="5 min">
-                </div>
-                <div class="field">
-                  <label>Fecha publicación</label>
-                  <input type="datetime-local" id="f-published-at">
-                </div>
-              </div>
-              <div class="field">
-                <label>Extracto</label>
-                <textarea id="f-excerpt" rows="2" placeholder="Breve descripción para el listado del blog..." oninput="updateSEOPreview()"></textarea>
-              </div>
-              <div class="field">
-                <label>Contenido del artículo <span style="color:var(--red)">*</span></label>
-                <div class="rich-editor-wrap">
-                  <div class="rich-toolbar">
-                    <button onclick="fmt('bold')" title="Negrita"><b>B</b></button>
-                    <button onclick="fmt('italic')" title="Cursiva"><i>I</i></button>
-                    <button onclick="fmt('underline')" title="Subrayado"><u>U</u></button>
-                    <div class="sep"></div>
-                    <button onclick="fmtBlock('h2')" title="Título H2">H2</button>
-                    <button onclick="fmtBlock('h3')" title="Título H3">H3</button>
-                    <div class="sep"></div>
-                    <button onclick="fmt('insertUnorderedList')" title="Lista">• Lista</button>
-                    <button onclick="fmt('insertOrderedList')" title="Lista num.">1. Lista</button>
-                    <div class="sep"></div>
-                    <button onclick="fmtBlock('blockquote')" title="Cita">❝</button>
-                    <button onclick="insertLink()" title="Enlace">🔗</button>
-                    <button onclick="fmt('removeFormat')" title="Quitar formato" style="font-size:11px;color:var(--gray-400)">✕ fmt</button>
-                  </div>
-                  <div
-                    class="rich-content"
-                    id="rich-editor"
-                    contenteditable="true"
-                    data-placeholder="Escribe el contenido del artículo aquí..."
-                    oninput="onRichInput()"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- TAB: SEO -->
-            <div class="tab-content" id="tab-seo">
-              <div class="field">
-                <label>Meta título <span style="color:var(--gray-400);font-weight:400;text-transform:none;font-size:11px">(aparece en Google)</span></label>
-                <input type="text" id="f-meta-title" placeholder="Título para Google (se usará el título del post si está vacío)" oninput="updateSEOPreview(); countChars(this, 'cnt-meta-title', 60)">
-                <div class="char-count" id="cnt-meta-title">0 / 60</div>
-              </div>
-              <div class="field">
-                <label>Meta descripción</label>
-                <textarea id="f-meta-desc" rows="3" placeholder="Descripción que aparece en Google (155 caracteres máx)..." oninput="updateSEOPreview(); countChars(this, 'cnt-meta-desc', 155)"></textarea>
-                <div class="char-count" id="cnt-meta-desc">0 / 155</div>
-              </div>
-              <div class="field">
-                <label>Palabras clave (keywords)</label>
-                <input type="text" id="f-keywords" placeholder="ia, automatización, captación, marketing...">
-                <div class="field-hint">Separadas por comas</div>
-              </div>
-
-              <!-- Preview Google -->
-              <div class="seo-preview">
-                <div class="seo-preview-label">Vista previa en Google</div>
-                <div class="seo-google-url" id="prev-url">imlabs.es › blog › tu-slug</div>
-                <div class="seo-google-title" id="prev-title">Título del post — imlabs</div>
-                <div class="seo-google-desc" id="prev-desc">El extracto del post aparecerá aquí como descripción en los resultados de Google...</div>
-              </div>
-
-              <!-- Preview OG -->
-              <div class="seo-preview" style="margin-top:0">
-                <div class="seo-preview-label">Vista previa al compartir (WhatsApp / LinkedIn)</div>
-                <div class="seo-og-preview">
-                  <div class="seo-og-img" id="prev-og-img-wrap">
-                    <span>Sin imagen seleccionada</span>
-                  </div>
-                  <div class="seo-og-body">
-                    <div class="seo-og-domain">IMLABS.ES</div>
-                    <div class="seo-og-title" id="prev-og-title">Título del post</div>
-                    <div class="seo-og-desc" id="prev-og-desc">Descripción del post...</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- TAB: IMAGEN -->
-            <div class="tab-content" id="tab-imagen">
-              <div class="field">
-                <label>Imagen destacada</label>
-                <div class="image-input-tabs">
-                  <button class="image-tab active" onclick="switchImageTab('url', this)">URL externa</button>
-                  <button class="image-tab" onclick="switchImageTab('file', this)">Subir archivo</button>
-                </div>
-                <div class="image-url-input active" id="image-url-wrap">
-                  <input type="url" id="f-image-url" placeholder="https://..." oninput="onImageUrlInput()">
-                  <div class="field-hint">URL de imagen de Unsplash, Cloudinary, etc.</div>
-                </div>
-                <div class="image-file-input" id="image-file-wrap">
-                  <input type="file" id="f-image-file" accept="image/*" onchange="onFileSelected(this)" style="font-size:13px;padding:8px 0">
-                </div>
-                <input type="hidden" id="f-image">
-                <div class="img-preview-wrap" id="img-preview-wrap">
-                  <img id="img-preview" src="" alt="Preview">
-                  <button class="img-remove" onclick="removeImage()" title="Eliminar">✕</button>
-                </div>
-              </div>
-              <div class="field" style="margin-top:8px">
-                <label>Alt text (texto alternativo)</label>
-                <input type="text" id="f-img-alt" placeholder="Descripción de la imagen para accesibilidad y SEO">
-              </div>
-            </div>
-
-          </div><!-- /editor-body -->
-
-          <div class="editor-footer">
-            <div class="editor-footer-left">
-              <button class="btn btn-danger" id="btn-delete" onclick="deletePost()" style="display:none">Eliminar</button>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <span class="save-status" id="save-status"></span>
-              <button class="btn btn-preview" onclick="openPreview()">👁 Preview</button>
-              <button class="btn btn-outline" onclick="savePost(false)">Guardar borrador</button>
-              <button class="btn btn-success" onclick="savePost(true)">Publicar ✓</button>
-            </div>
-          </div>
-        </div><!-- /editor-form -->
-      </div><!-- /editor-panel -->
-
-    </div><!-- /blog-layout -->
-  </div><!-- /section-blog -->
-
-  <!-- ── LEADS CRM ── -->
-  <div class="section" id="section-leads">
-    <div class="crm-layout">
-
-      <!-- Stats -->
-      <div class="crm-stats">
-        <div class="crm-stat"><div class="crm-stat-value" id="crm-total">—</div><div class="crm-stat-label">Total leads</div></div>
-        <div class="crm-stat"><div class="crm-stat-value" style="color:#2563EB" id="crm-nuevos">—</div><div class="crm-stat-label">Nuevos</div></div>
-        <div class="crm-stat"><div class="crm-stat-value" style="color:#D97706" id="crm-contactados">—</div><div class="crm-stat-label">Contactados</div></div>
-        <div class="crm-stat"><div class="crm-stat-value" style="color:#16A34A" id="crm-proceso">—</div><div class="crm-stat-label">En proceso</div></div>
-        <div class="crm-stat"><div class="crm-stat-value" style="color:#065F46" id="crm-cerrados">—</div><div class="crm-stat-label">Cerrados</div></div>
-      </div>
-
-      <!-- Filtros -->
-      <div class="crm-filters">
-        <input type="search" id="crm-buscar" placeholder="🔍 Buscar nombre, empresa, email..." oninput="filtrarLeads()">
-        <select id="crm-estado" onchange="filtrarLeads()">
-          <option value="">Todos los estados</option>
-          <option value="nuevo">Nuevo</option>
-          <option value="contactado">Contactado</option>
-          <option value="en_proceso">En proceso</option>
-          <option value="cerrado">Cerrado</option>
-          <option value="descartado">Descartado</option>
-        </select>
-        <select id="crm-sector" onchange="filtrarLeads()">
-          <option value="">Todos los sectores</option>
-        </select>
-        <select id="crm-urgencia" onchange="filtrarLeads()">
-          <option value="">Toda urgencia</option>
-          <option value="inmediata">Inmediata</option>
-          <option value="proximo_mes">Próximo mes</option>
-          <option value="explorando">Explorando</option>
-        </select>
-        <button class="btn btn-outline" onclick="exportarLeadsCSV()" style="white-space:nowrap">⬇ CSV</button>
-        <button class="btn btn-outline" onclick="cargarLeads()" style="white-space:nowrap">↻</button>
-      </div>
-
-      <!-- Tabla -->
-      <div class="crm-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Contacto</th>
-              <th>Empresa</th>
-              <th>Sector</th>
-              <th>Necesidad / Producto</th>
-              <th>Urgencia</th>
-              <th>Estado</th>
-              <th>Fecha</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="crm-tbody">
-            <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--gray-400)">Cargando leads...</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── WEB CMS ── -->
-  <div class="section" id="section-web">
-    <div style="max-width:860px;margin:0 auto">
-
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+      <!-- Header dinámico -->
+      <div class="main-header">
         <div>
-          <div style="font-size:20px;font-weight:800;color:var(--navy)">Contenido de la web</div>
-          <div style="font-size:13px;color:var(--gray-500);margin-top:4px">Edita los textos de imlabs.es sin tocar código</div>
+          <div class="main-header-title" id="main-title">Blog</div>
+          <div class="main-header-sub" id="main-sub">Gestiona los artículos del blog</div>
         </div>
-        <button class="btn btn-success" onclick="guardarTodoWeb()">Guardar todos los cambios</button>
+        <div class="main-header-actions">
+          <button class="btn btn-primary" id="btn-new-post" onclick="newPost()">+ Nuevo post</button>
+        </div>
       </div>
 
-      <div id="web-cms-content">
-        <div style="text-align:center;padding:60px;color:var(--gray-400)">Cargando contenido...</div>
-      </div>
+      <div class="main-body">
 
-    </div>
-  </div>
+        <!-- ── BLOG ── -->
+        <div class="section active" id="section-blog">
+          <div class="blog-layout">
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">Artículos</span>
+                <span id="post-count" style="font-size:11px;color:var(--gray-400)"></span>
+              </div>
+              <div class="post-list" id="post-list">
+                <div style="padding:40px;text-align:center;color:var(--gray-400);font-size:13px">Cargando...</div>
+              </div>
+            </div>
+            <div class="panel editor-panel" id="editor-panel">
+              <div class="empty-editor" id="empty-editor">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" opacity=".3"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <p>Selecciona un artículo o crea uno nuevo</p>
+              </div>
+              <div id="editor-form" style="display:none;flex-direction:column;flex:1">
+                <div class="editor-tabs">
+                  <button class="editor-tab active" onclick="switchEditorTab('contenido', this)">Contenido</button>
+                  <button class="editor-tab" onclick="switchEditorTab('seo', this)">SEO</button>
+                  <button class="editor-tab" onclick="switchEditorTab('imagen', this)">Imagen</button>
+                </div>
+                <div class="editor-body">
+                  <div class="tab-content active" id="tab-contenido">
+                    <div class="field"><label>Título <span style="color:var(--red)">*</span></label><input type="text" id="f-title" placeholder="Título del artículo" oninput="onTitleInput()"></div>
+                    <div class="field-row">
+                      <div class="field"><label>Slug (URL)</label><input type="text" id="f-slug" placeholder="url-del-articulo" oninput="updateSEOPreview()"><div class="field-hint">imlabs.es/blog/<span id="slug-preview" style="color:var(--blue)">tu-slug</span></div></div>
+                      <div class="field"><label>Categoría</label><select id="f-category"><option>Captación</option><option>IA</option><option>Automatización</option><option>CRM</option><option>General</option></select></div>
+                    </div>
+                    <div class="field-row">
+                      <div class="field"><label>Tiempo de lectura</label><input type="text" id="f-reading" placeholder="5 min"></div>
+                      <div class="field"><label>Fecha publicación</label><input type="datetime-local" id="f-published-at"></div>
+                    </div>
+                    <div class="field"><label>Extracto</label><textarea id="f-excerpt" rows="2" placeholder="Breve descripción..." oninput="updateSEOPreview()"></textarea></div>
+                    <div class="field">
+                      <label>Contenido <span style="color:var(--red)">*</span></label>
+                      <div class="rich-editor-wrap">
+                        <div class="rich-toolbar">
+                          <button onclick="fmt('bold')" title="Negrita"><b>B</b></button>
+                          <button onclick="fmt('italic')" title="Cursiva"><i>I</i></button>
+                          <button onclick="fmt('underline')" title="Subrayado"><u>U</u></button>
+                          <div class="sep"></div>
+                          <button onclick="fmtBlock('h2')">H2</button>
+                          <button onclick="fmtBlock('h3')">H3</button>
+                          <div class="sep"></div>
+                          <button onclick="fmt('insertUnorderedList')">• Lista</button>
+                          <button onclick="fmt('insertOrderedList')">1. Lista</button>
+                          <div class="sep"></div>
+                          <button onclick="fmtBlock('blockquote')">❝</button>
+                          <button onclick="insertLink()">🔗</button>
+                          <button onclick="fmt('removeFormat')" style="font-size:11px;color:var(--gray-400)">✕ fmt</button>
+                        </div>
+                        <div class="rich-content" id="rich-editor" contenteditable="true" data-placeholder="Escribe el contenido aquí..."></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-content" id="tab-seo">
+                    <div class="field"><label>Meta título</label><input type="text" id="f-meta-title" placeholder="Título para Google" oninput="updateSEOPreview(); countChars(this, 'cnt-meta-title', 60)"><div class="char-count" id="cnt-meta-title">0 / 60</div></div>
+                    <div class="field"><label>Meta descripción</label><textarea id="f-meta-desc" rows="3" placeholder="Descripción para Google (155 chars)..." oninput="updateSEOPreview(); countChars(this, 'cnt-meta-desc', 155)"></textarea><div class="char-count" id="cnt-meta-desc">0 / 155</div></div>
+                    <div class="field"><label>Keywords</label><input type="text" id="f-keywords" placeholder="ia, automatización..."><div class="field-hint">Separadas por comas</div></div>
+                    <div class="seo-preview"><div class="seo-preview-label">Vista previa Google</div><div class="seo-google-url" id="prev-url">imlabs.es › blog › tu-slug</div><div class="seo-google-title" id="prev-title">Título — imlabs</div><div class="seo-google-desc" id="prev-desc">Descripción...</div></div>
+                    <div class="seo-preview"><div class="seo-preview-label">Vista previa al compartir</div><div class="seo-og-preview"><div class="seo-og-img" id="prev-og-img-wrap"><span>Sin imagen</span></div><div class="seo-og-body"><div class="seo-og-domain">IMLABS.ES</div><div class="seo-og-title" id="prev-og-title">Título</div><div class="seo-og-desc" id="prev-og-desc">Descripción...</div></div></div></div>
+                  </div>
+                  <div class="tab-content" id="tab-imagen">
+                    <div class="field"><label>Imagen destacada</label><div class="image-input-tabs"><button class="image-tab active" onclick="switchImageTab('url', this)">URL externa</button><button class="image-tab" onclick="switchImageTab('file', this)">Subir archivo</button></div><div class="image-url-input active" id="image-url-wrap"><input type="url" id="f-image-url" placeholder="https://..." oninput="onImageUrlInput()"></div><div class="image-file-input" id="image-file-wrap"><input type="file" id="f-image-file" accept="image/*" onchange="onFileSelected(this)" style="font-size:13px;padding:8px 0"></div><input type="hidden" id="f-image"><div class="img-preview-wrap" id="img-preview-wrap"><img id="img-preview" src="" alt="Preview"><button class="img-remove" onclick="removeImage()">✕</button></div></div>
+                    <div class="field"><label>Alt text</label><input type="text" id="f-img-alt" placeholder="Descripción de la imagen para SEO"></div>
+                  </div>
+                </div>
+                <div class="editor-footer">
+                  <div class="editor-footer-left"><button class="btn btn-danger" id="btn-delete" onclick="deletePost()" style="display:none">Eliminar</button></div>
+                  <div style="display:flex;gap:8px;align-items:center">
+                    <span class="save-status" id="save-status"></span>
+                    <button class="btn btn-preview" onclick="openPreview()">Preview</button>
+                    <button class="btn btn-outline" onclick="savePost(false)">Borrador</button>
+                    <button class="btn btn-success" onclick="savePost(true)">Publicar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- ── LEADS ── -->
+        <div class="section" id="section-leads">
+          <div class="crm-layout">
+            <div class="crm-stats">
+              <div class="crm-stat"><div class="crm-stat-value" id="crm-total">—</div><div class="crm-stat-label">Total leads</div></div>
+              <div class="crm-stat"><div class="crm-stat-value" style="color:#2563EB" id="crm-nuevos">—</div><div class="crm-stat-label">Nuevos</div></div>
+              <div class="crm-stat"><div class="crm-stat-value" style="color:#D97706" id="crm-contactados">—</div><div class="crm-stat-label">Contactados</div></div>
+              <div class="crm-stat"><div class="crm-stat-value" style="color:#16A34A" id="crm-proceso">—</div><div class="crm-stat-label">En proceso</div></div>
+              <div class="crm-stat"><div class="crm-stat-value" style="color:#065F46" id="crm-cerrados">—</div><div class="crm-stat-label">Cerrados</div></div>
+            </div>
+            <div class="crm-filters">
+              <input type="search" id="crm-buscar" placeholder="Buscar nombre, empresa, email..." oninput="filtrarLeads()">
+              <select id="crm-estado" onchange="filtrarLeads()"><option value="">Todos los estados</option><option value="nuevo">Nuevo</option><option value="contactado">Contactado</option><option value="en_proceso">En proceso</option><option value="cerrado">Cerrado</option><option value="descartado">Descartado</option></select>
+              <select id="crm-sector" onchange="filtrarLeads()"><option value="">Todos los sectores</option></select>
+              <select id="crm-urgencia" onchange="filtrarLeads()"><option value="">Toda urgencia</option><option value="inmediata">Inmediata</option><option value="proximo_mes">Próximo mes</option><option value="explorando">Explorando</option></select>
+              <button class="btn btn-outline" onclick="exportarLeadsCSV()" style="white-space:nowrap">Exportar CSV</button>
+              <button class="btn btn-outline" onclick="cargarLeads()" style="white-space:nowrap">Actualizar</button>
+            </div>
+            <div class="crm-table-wrap">
+              <table><thead><tr><th>Contacto</th><th>Empresa</th><th>Sector</th><th>Necesidad / Producto</th><th>Urgencia</th><th>Estado</th><th>Fecha</th><th></th></tr></thead>
+              <tbody id="crm-tbody"><tr><td colspan="8" style="text-align:center;padding:40px;color:var(--gray-400)">Cargando leads...</td></tr></tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── WEB ── -->
+        <div class="section" id="section-web">
+          <div style="max-width:860px;margin:0 auto">
+            <div id="web-cms-content"><div style="text-align:center;padding:60px;color:var(--gray-400)">Cargando contenido...</div></div>
+          </div>
+        </div>
+
+      </div><!-- /main-body -->
+    </div><!-- /main-content -->
+  </div><!-- /app-layout -->
 </div><!-- /admin-screen -->
 
 <!-- PREVIEW MODAL -->
@@ -615,18 +592,27 @@ tr:hover td { background: var(--gray-50); }
   <div class="preview-modal">
     <div class="preview-header">
       <span style="font-size:13px;font-weight:700;color:var(--gray-500)">Vista previa del post</span>
-      <div style="display:flex;gap:8px">
-        <a id="preview-link" href="#" target="_blank" class="btn btn-outline" style="font-size:12px;text-decoration:none">Abrir en web →</a>
-        <button class="btn btn-outline" onclick="closePreview()" style="font-size:12px">✕ Cerrar</button>
-      </div>
+      <div style="display:flex;gap:8px"><a id="preview-link" href="#" target="_blank" class="btn btn-outline" style="font-size:12px;text-decoration:none">Abrir en web</a><button class="btn btn-outline" onclick="closePreview()" style="font-size:12px">Cerrar</button></div>
     </div>
     <div class="preview-body" id="preview-body"></div>
+  </div>
+</div>
+
+<!-- LEAD MODAL -->
+<div class="lead-modal-overlay" id="lead-modal-overlay" onclick="if(event.target===this)cerrarLeadModal()">
+  <div class="lead-modal">
+    <div class="lead-modal-header">
+      <div><div class="lead-modal-title" id="lead-modal-nombre"></div><div class="lead-modal-sub" id="lead-modal-sub"></div></div>
+      <button onclick="cerrarLeadModal()" style="background:var(--gray-100);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px">✕</button>
+    </div>
+    <div class="lead-modal-body" id="lead-modal-body"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+
 // ══════════ CONFIG SUPABASE ══════════
 const SUPABASE_URL = 'https://jldvhpycybeqqyfyjsjt.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZHZocHljeWJlcXF5Znlqc2p0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NTE0NDEsImV4cCI6MjA5MjUyNzQ0MX0.On7QpPnXyVs8WnoOrBtsbnkaOGgc-POJUK-LEziLVRY';
@@ -986,23 +972,8 @@ function showToast(msg, type = '') {
 function formatDate(d) {
   return new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
 }
-</script>
 
-<!-- LEAD MODAL -->
-<div class="lead-modal-overlay" id="lead-modal-overlay" onclick="if(event.target===this)cerrarLeadModal()">
-  <div class="lead-modal">
-    <div class="lead-modal-header">
-      <div>
-        <div class="lead-modal-title" id="lead-modal-nombre"></div>
-        <div class="lead-modal-sub" id="lead-modal-sub"></div>
-      </div>
-      <button onclick="cerrarLeadModal()" style="background:var(--gray-100);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;color:var(--gray-500)">✕</button>
-    </div>
-    <div class="lead-modal-body" id="lead-modal-body"></div>
-  </div>
-</div>
 
-<script>
 // ══════ CRM LEADS ══════
 let todosLeads = [];
 let leadActualId = null;
@@ -1168,10 +1139,8 @@ function exportarLeadsCSV() {
 }
 
 // CRM listo
-</script>
 
 
-<script>
 // ══════ WEB CMS ══════
 let webContent = {};
 
@@ -1293,7 +1262,55 @@ async function guardarTodoWeb() {
   }
   showToast('Todos los cambios guardados');
 }
-</script>
 
+
+// ══ SIDEBAR NAVIGATION ══
+const SECTION_CONFIG = {
+  blog: { title: 'Blog', sub: 'Gestiona los artículos publicados', showNewPost: true },
+  leads: { title: 'Leads', sub: 'Gestiona los clientes potenciales', showNewPost: false },
+  web: { title: 'Contenido web', sub: 'Edita los textos de imlabs.es sin tocar código', showNewPost: false },
+};
+
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  const cfg = SECTION_CONFIG[name] || {};
+  document.getElementById('main-title').textContent = cfg.title || name;
+  document.getElementById('main-sub').textContent = cfg.sub || '';
+  document.getElementById('btn-new-post').style.display = cfg.showNewPost ? 'block' : 'none';
+  if (name === 'leads') cargarLeads();
+  if (name === 'web') cargarWebCMS();
+}
+
+// Actualizar badges del sidebar
+async function actualizarBadges() {
+  // Badge blog
+  const { data: posts } = await sb.from('posts').select('id, published');
+  if (posts) {
+    const pub = posts.filter(p => p.published).length;
+    document.getElementById('badge-blog').textContent = pub;
+    document.getElementById('badge-blog').className = 'sidebar-badge blue';
+  }
+  // Badge leads
+  const { data: leads } = await sb.from('leads').select('id, estado');
+  if (leads) {
+    const nuevos = leads.filter(l => l.estado === 'nuevo').length;
+    const badge = document.getElementById('badge-leads');
+    badge.textContent = nuevos > 0 ? nuevos : leads.length;
+    badge.className = nuevos > 0 ? 'sidebar-badge' : 'sidebar-badge green';
+  }
+}
+
+// Llamar badges al iniciar
+const _origInitAdmin = initAdmin;
+function initAdmin() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-screen').style.display = 'block';
+  loadPosts();
+  actualizarBadges();
+}
+</script>
 </body>
 </html>
