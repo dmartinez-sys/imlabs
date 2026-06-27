@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — imlabs</title>
+<meta name="description" content="Cuéntanos tu caso. En 30 minutos te decimos si tenemos una solución de IA para tu empresa y cómo encaja en tu operativa.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://imlabs.es/contacto">
+<link rel="icon" href="/favicon.ico?v=10" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://imlabs.es/contacto">
+<meta property="og:title" content="Contacto — imlabs">
+<meta property="og:description" content="Cuéntanos tu caso. En 30 minutos te decimos si tenemos una solución de IA para tu empresa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0D1B5E; --blue: #2563EB; --blue-faint: #EFF6FF;
+  --ink: #0d0f14; --g50: #f8fafc; --g100: #f1f5f9; --g200: #e2e8f0;
+  --g400: #94a3b8; --g500: #64748b; --g600: #475569; --white: #fff;
+  --green: #10b981; --red: #ef4444;
+  --font: "Plus Jakarta Sans", sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 80px; background: rgba(255,255,255,.95); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,.06); display: flex; align-items: center;
+}
+.nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 32px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--g500); text-decoration: none; transition: color .15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--navy); color: white; font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 10px; text-decoration: none; transition: background .15s; }
+.nav-cta:hover { background: var(--blue); }
+
+/* HERO */
+.hero {
+  padding: 140px 32px 80px;
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+}
+.hero-left { padding-top: 8px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-faint); border: 1px solid #DBEAFE; border-radius: 100px;
+  padding: 6px 16px; font-size: 11px; font-weight: 700; color: var(--blue);
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 28px;
+}
+.hero-eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--blue); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+.hero h1 { font-size: clamp(32px, 3.5vw, 52px); font-weight: 800; line-height: 1.08; letter-spacing: -.04em; margin-bottom: 20px; }
+.hero h1 em { font-style: normal; color: var(--blue); }
+.hero-desc { font-size: 17px; color: var(--g500); line-height: 1.65; margin-bottom: 40px; }
+
+.trust-items { display: flex; flex-direction: column; gap: 16px; }
+.trust-item { display: flex; align-items: flex-start; gap: 12px; }
+.trust-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--blue-faint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.trust-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.trust-item p { font-size: 13px; color: var(--g500); line-height: 1.5; }
+
+/* FORM */
+.form-card {
+  background: var(--white); border: 1px solid var(--g200); border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(13,27,94,.08), 0 1px 4px rgba(13,27,94,.04);
+  overflow: hidden;
+}
+.form-card-header {
+  background: var(--navy); padding: 28px 32px;
+}
+.form-card-header h2 { font-size: 20px; font-weight: 800; color: white; margin-bottom: 6px; }
+.form-card-header p { font-size: 13px; color: #93c5fd; }
+.form-card-body { padding: 28px 32px; display: flex; flex-direction: column; gap: 16px; }
+
+.section-label { font-size: 10px; font-weight: 700; color: var(--blue); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--g100); margin-top: 4px; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 12px; font-weight: 600; color: var(--g600); }
+.field label .req { color: var(--red); }
+.field input, .field select, .field textarea {
+  font-family: var(--font); font-size: 14px; color: var(--ink);
+  border: 1.5px solid var(--g200); border-radius: 10px; padding: 10px 14px;
+  outline: none; transition: border-color .15s, box-shadow .15s;
+  background: white; width: 100%;
+  -webkit-appearance: none; appearance: none;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--g400); }
+.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field-hint { font-size: 11px; color: var(--g400); }
+
+.btn-submit {
+  width: 100%; font-family: var(--font); font-size: 15px; font-weight: 800;
+  color: white; background: var(--blue); border: none; border-radius: 12px;
+  padding: 15px 24px; cursor: pointer; transition: all .2s; margin-top: 4px;
+  box-shadow: 0 4px 16px rgba(37,99,235,.3);
+}
+.btn-submit:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+.btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.form-note { font-size: 11px; color: var(--g400); text-align: center; margin-top: 4px; }
+
+/* SUCCESS */
+.success-state { display: none; padding: 48px 32px; text-align: center; }
+.success-icon { width: 64px; height: 64px; background: #D1FAE5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.success-state h3 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.success-state p { font-size: 15px; color: var(--g500); line-height: 1.6; }
+
+/* SOCIAL PROOF */
+.proof-section { background: var(--g50); border-top: 1px solid var(--g100); padding: 80px 32px; }
+.proof-inner { max-width: 1120px; margin: 0 auto; text-align: center; }
+.proof-inner h2 { font-size: clamp(24px, 2.5vw, 36px); font-weight: 800; letter-spacing: -.04em; margin-bottom: 48px; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
+.proof-card { background: white; border: 1px solid var(--g100); border-radius: 16px; padding: 28px; }
+.proof-card h3 { font-size: 36px; font-weight: 800; color: var(--navy); letter-spacing: -.04em; margin-bottom: 6px; }
+.proof-card h3 span { color: var(--blue); }
+.proof-card p { font-size: 14px; color: var(--g500); line-height: 1.5; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 24px; border-bottom: 1px solid var(--g50); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--g400); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--ink); }
+.footer-copy { text-align: center; font-size: 12px; color: var(--g400); padding-top: 20px; }
+
+/* COOKIE */
+#cookie { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: white; border-top: 1px solid var(--g200); transform: translateY(100%); transition: transform .4s; padding: 16px 32px; }
+#cookie.show { transform: translateY(0); }
+.cookie-inner { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.cookie-inner p { font-size: 13px; color: var(--g500); }
+.cookie-inner a { color: var(--blue); }
+.cookie-btns button { font-family: var(--font); cursor: pointer; font-size: 13px; border: none; border-radius: 8px; padding: 9px 18px; font-weight: 600; margin-left: 8px; }
+.cookie-all { background: var(--navy); color: white; }
+.cookie-ess { background: var(--g100); color: var(--g600); }
+
+/* TOAST */
+.toast { position: fixed; bottom: 24px; right: 24px; z-index: 999; background: var(--ink); color: white; font-size: 13px; font-weight: 600; padding: 12px 20px; border-radius: 10px; opacity: 0; transform: translateY(8px); transition: all .2s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.error { background: var(--red); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 120px; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .hero { padding-left: 20px; padding-right: 20px; }
+  .proof-section, footer { padding-left: 20px; padding-right: 20px; }
+  .field-row { grid-template-columns: 1fr; }
+  .form-card-header, .form-card-body { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/"><img src="/logo_imlabs.svg" alt="imlabs" style="height:66px;width:auto"></a>
+    <div class="nav-links">
+      <a href="/#productos">Productos</a>
+      <a href="/blog">Blog</a>
+      <a href="/#por-que">Por que imlabs</a>
+    </div>
+    <a href="/contacto" class="nav-cta">Hablar con nosotros</a>
+  </div>
+</nav>
+
+<!-- HERO + FORM -->
+<div class="hero">
+  <!-- Izquierda -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">Hablemos</div>
+    <h1>Tu empresa tiene problemas<br>que la IA puede resolver <em>hoy.</em></h1>
+    <p class="hero-desc">Cuéntanos tu situacion. En 30 minutos te decimos exactamente que podemos automatizar, cuanto tiempo ahorra y que ROI puedes esperar.</p>
+
+    <div class="trust-items">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div>
+          <h4>Respuesta en menos de 24 horas</h4>
+          <p>Revisamos tu caso y te contactamos directamente para entender bien el problema antes de proponer nada.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h4>Sin compromiso ni presion</h4>
+          <p>La primera conversacion es solo para entendernos. Si no encajamos, te lo decimos sin rodeos.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div>
+          <h4>Listo en dias, no en meses</h4>
+          <p>Si hay encaje, ponemos la solucion en produccion en menos de una semana. Sin proyectos interminables.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <div class="form-card">
+    <div class="form-card-header">
+      <h2>Solicitar informacion</h2>
+      <p>Completa el formulario y te contactamos en menos de 24 horas</p>
+    </div>
+
+    <div id="form-body">
+      <div class="form-card-body">
+
+        <div class="section-label">Datos de contacto</div>
+        <div class="field-row">
+          <div class="field">
+            <label>Nombre <span class="req">*</span></label>
+            <input type="text" id="f-nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="field">
+            <label>Apellidos</label>
+            <input type="text" id="f-apellidos" placeholder="Tus apellidos">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Email profesional <span class="req">*</span></label>
+            <input type="email" id="f-email" placeholder="nombre@empresa.com" required>
+          </div>
+          <div class="field">
+            <label>Telefono / WhatsApp</label>
+            <input type="tel" id="f-telefono" placeholder="+34 600 000 000">
+          </div>
+        </div>
+
+        <div class="section-label">Tu empresa</div>
+        <div class="field-row">
+          <div class="field">
+            <label>Empresa <span class="req">*</span></label>
+            <input type="text" id="f-empresa" placeholder="Nombre de tu empresa" required>
+          </div>
+          <div class="field">
+            <label>Tu cargo</label>
+            <input type="text" id="f-cargo" placeholder="CEO, Director de Marketing...">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Sector <span class="req">*</span></label>
+            <select id="f-sector" required>
+              <option value="">Selecciona tu sector</option>
+              <option>Educacion / Formacion</option>
+              <option>Retail / Ecommerce</option>
+              <option>Salud / Bienestar</option>
+              <option>Inmobiliaria</option>
+              <option>Hosteleria / Turismo</option>
+              <option>Servicios profesionales</option>
+              <option>Tecnologia / SaaS</option>
+              <option>Industria / Fabricacion</option>
+              <option>Marketing / Agencia</option>
+              <option>Finanzas / Seguros</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Tamano de la empresa</label>
+            <select id="f-tamanyo">
+              <option value="">Selecciona</option>
+              <option value="1-10">1-10 empleados</option>
+              <option value="11-50">11-50 empleados</option>
+              <option value="51-200">51-200 empleados</option>
+              <option value="200+">Mas de 200</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Web de la empresa</label>
+          <input type="url" id="f-web" placeholder="https://tuempresa.com">
+        </div>
+
+        <div class="section-label">Que necesitas</div>
+        <div class="field">
+          <label>Que problema quieres resolver con IA <span class="req">*</span></label>
+          <textarea id="f-necesidad" placeholder="Ejemplo: necesitamos atender mas leads sin contratar mas personal, automatizar respuestas en WhatsApp, mejorar el seguimiento de clientes..." required></textarea>
+          <span class="field-hint">Cuanto mas especifico, mejor podremos orientarte.</span>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Solucion de interes</label>
+            <select id="f-producto">
+              <option value="">No lo se aun</option>
+              <option value="educabot">educabot — captacion de alumnos</option>
+              <option value="socialbot">socialbot — publicacion en redes</option>
+              <option value="leadbot">leadbot — ventas B2B</option>
+              <option value="supportbot">supportbot — atencion al cliente</option>
+              <option value="databot">databot — analytics con IA</option>
+              <option value="personalizado">Algo personalizado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Urgencia</label>
+            <select id="f-urgencia">
+              <option value="">Selecciona</option>
+              <option value="inmediata">Necesito solucion ya</option>
+              <option value="proximo_mes">En el proximo mes</option>
+              <option value="explorando">Explorando opciones</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Presupuesto estimado mensual</label>
+          <select id="f-presupuesto">
+            <option value="">Prefiero no indicarlo ahora</option>
+            <option value="<500">Menos de 500 euros/mes</option>
+            <option value="500-1000">500 - 1.000 euros/mes</option>
+            <option value="1000-3000">1.000 - 3.000 euros/mes</option>
+            <option value="3000+">Mas de 3.000 euros/mes</option>
+          </select>
+        </div>
+
+        <button class="btn-submit" id="btn-submit" onclick="enviarFormulario()">Solicitar informacion gratuita</button>
+        <p class="form-note">Tus datos estan seguros y nunca los compartiremos con terceros.</p>
+      </div>
+    </div>
+
+    <!-- Estado exito -->
+    <div class="success-state" id="success-state">
+      <div class="success-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>Solicitud recibida</h3>
+      <p>Hemos recibido tus datos y nos pondremos en contacto en menos de 24 horas.<br><br>Si tienes prisa, escribenos directamente a <strong>agencia@im.education</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- PRUEBA SOCIAL -->
+<section class="proof-section">
+  <div class="proof-inner">
+    <h2>Numeros que hablan por si solos</h2>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <h3>+<span>25</span></h3>
+        <p>Anos dedicados al marketing y la tecnologia con empresas de todos los sectores</p>
+      </div>
+      <div class="proof-card">
+        <h3>+<span>3.000</span></h3>
+        <p>Proyectos completados para empresas de todos los tamanios</p>
+      </div>
+      <div class="proof-card">
+        <h3><span>98</span>%</h3>
+        <p>De clientes satisfechos. Y los conocemos a todos por su nombre</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <img src="/logo_imlabs.svg" alt="imlabs" style="height:44px;width:auto">
+      <div class="footer-links">
+        <a href="/educabot/">educabot</a>
+        <a href="/politica-de-privacidad.html">Privacidad</a>
+        <a href="/politica-de-cookies.html">Cookies</a>
+        <a href="mailto:agencia@im.education">agencia@im.education</a>
+      </div>
+    </div>
+    <div class="footer-copy">2025 imlabs - IM Digital Marketing Expert Agency, S.L. Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<!-- COOKIE -->
+<div id="cookie">
+  <div class="cookie-inner">
+    <p>Utilizamos cookies para mejorar tu experiencia. <a href="/politica-de-cookies.html">Politica de cookies</a></p>
+    <div class="cookie-btns">
+      <button class="cookie-ess" onclick="closeCookie()">Solo esenciales</button>
+      <button class="cookie-all" onclick="closeCookie()">Aceptar todas</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = "https://jldvhpycybeqqyfyjsjt.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZHZocHljeWJlcXF5Znlqc2p0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NTE0NDEsImV4cCI6MjA5MjUyNzQ0MX0.On7QpPnXyVs8WnoOrBtsbnkaOGgc-POJUK-LEziLVRY";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function enviarFormulario() {
+  const nombre = document.getElementById("f-nombre").value.trim();
+  const email = document.getElementById("f-email").value.trim();
+  const empresa = document.getElementById("f-empresa").value.trim();
+  const sector = document.getElementById("f-sector").value;
+  const necesidad = document.getElementById("f-necesidad").value.trim();
+
+  if (!nombre || !email || !empresa || !sector || !necesidad) {
+    showToast("Completa los campos obligatorios", true);
+    return;
+  }
+
+  const btn = document.getElementById("btn-submit");
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+
+  const { error } = await sb.from("leads").insert([{
+    nombre,
+    apellidos: document.getElementById("f-apellidos").value.trim() || null,
+    email,
+    telefono: document.getElementById("f-telefono").value.trim() || null,
+    empresa,
+    cargo: document.getElementById("f-cargo").value.trim() || null,
+    sector,
+    tamanyo_empresa: document.getElementById("f-tamanyo").value || null,
+    web: document.getElementById("f-web").value.trim() || null,
+    necesidad,
+    producto_interes: document.getElementById("f-producto").value || null,
+    urgencia: document.getElementById("f-urgencia").value || null,
+    presupuesto: document.getElementById("f-presupuesto").value || null,
+    fuente: "web"
+  }]);
+
+  btn.disabled = false;
+  btn.textContent = "Solicitar informacion gratuita";
+
+  if (error) { showToast("Error al enviar. Intentalo de nuevo.", true); return; }
+
+  document.getElementById("form-body").style.display = "none";
+  document.getElementById("success-state").style.display = "block";
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (isError ? " error" : "");
+  setTimeout(() => t.className = "toast", 3000);
+}
+
+function closeCookie() {
+  localStorage.setItem("cookies", "1");
+  document.getElementById("cookie").classList.remove("show");
+}
+if (!localStorage.getItem("cookies")) {
+  setTimeout(() => document.getElementById("cookie").classList.add("show"), 900);
+}
+</script>
+</body>
+</html>
