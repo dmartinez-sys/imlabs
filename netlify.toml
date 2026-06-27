@@ -1,8 +1,17 @@
-# imlabs — Netlify config
-# Redirige /blog/[slug] a la Netlify Function que sirve HTML completo para SEO
-
 [[redirects]]
   from = "/blog/:slug"
   to = "/.netlify/functions/blog-post/:slug"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/contacto"
+  to = "/contacto.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
   status = 200
   force = true
