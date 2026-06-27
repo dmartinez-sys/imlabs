@@ -250,6 +250,17 @@ header img { height: 52px; width: auto; }
   .section { padding: 16px; }
 }
 
+/* ── WEB CMS ── */
+.web-section-card { background: white; border: 1px solid var(--gray-200); border-radius: 14px; overflow: hidden; margin-bottom: 20px; }
+.web-section-header { padding: 16px 20px; background: var(--gray-50); border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
+.web-section-title { font-size: 13px; font-weight: 700; color: var(--navy); }
+.web-section-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.web-field { display: flex; flex-direction: column; gap: 5px; }
+.web-field label { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .05em; }
+.web-field input, .web-field textarea { font-family: inherit; font-size: 14px; color: var(--ink); border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 9px 13px; outline: none; transition: border-color .15s; width: 100%; }
+.web-field input:focus, .web-field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+.web-field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
 /* ── CRM LEADS ── */
 .crm-layout { display: flex; flex-direction: column; gap: 20px; }
 .crm-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
@@ -577,6 +588,25 @@ tr:hover td { background: var(--gray-50); }
     </div>
   </div>
 
+  <!-- ── WEB CMS ── -->
+  <div class="section" id="section-web">
+    <div style="max-width:860px;margin:0 auto">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--navy)">Contenido de la web</div>
+          <div style="font-size:13px;color:var(--gray-500);margin-top:4px">Edita los textos de imlabs.es sin tocar código</div>
+        </div>
+        <button class="btn btn-success" onclick="guardarTodoWeb()">Guardar todos los cambios</button>
+      </div>
+
+      <div id="web-cms-content">
+        <div style="text-align:center;padding:60px;color:var(--gray-400)">Cargando contenido...</div>
+      </div>
+
+    </div>
+  </div>
+
 </div><!-- /admin-screen -->
 
 <!-- PREVIEW MODAL -->
@@ -639,6 +669,7 @@ function showSection(name) {
   event.target.classList.add('active');
   document.getElementById('btn-new-post').style.display = name === 'blog' ? 'block' : 'none';
   if (name === 'leads') cargarLeads();
+  if (name === 'web') cargarWebCMS();
 }
 
 // ══════════ POSTS ══════════
@@ -1136,6 +1167,131 @@ function exportarLeadsCSV() {
 }
 
 // CRM listo
+</script>
+
+
+<script>
+// ══════ WEB CMS ══════
+let webContent = {};
+
+const WEB_SECTIONS = {
+  hero: {
+    label: 'Hero — Sección principal',
+    fields: [
+      { key: 'eyebrow', label: 'Eyebrow (texto pequeño arriba)', type: 'text' },
+      { key: 'titulo', label: 'Título principal', type: 'text' },
+      { key: 'subtitulo', label: 'Descripción', type: 'textarea' },
+      { key: 'btn_primario', label: 'Botón principal', type: 'text' },
+      { key: 'btn_secundario', label: 'Botón secundario', type: 'text' },
+    ]
+  },
+  contexto: {
+    label: 'Contexto — Sección oscura',
+    fields: [
+      { key: 'titulo', label: 'Título', type: 'text' },
+      { key: 'texto', label: 'Texto', type: 'textarea' },
+    ]
+  },
+  productos: {
+    label: 'Productos — Cabecera de la sección',
+    fields: [
+      { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+      { key: 'titulo', label: 'Título', type: 'text' },
+      { key: 'subtitulo', label: 'Descripción', type: 'textarea' },
+    ]
+  },
+  porque: {
+    label: 'Por qué imlabs',
+    fields: [
+      { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+      { key: 'titulo', label: 'Título', type: 'text' },
+      { key: 'subtitulo', label: 'Descripción intro', type: 'textarea' },
+      { key: 'punto1_titulo', label: 'Punto 1 — Título', type: 'text' },
+      { key: 'punto1_texto', label: 'Punto 1 — Texto', type: 'textarea' },
+      { key: 'punto2_titulo', label: 'Punto 2 — Título', type: 'text' },
+      { key: 'punto2_texto', label: 'Punto 2 — Texto', type: 'textarea' },
+      { key: 'punto3_titulo', label: 'Punto 3 — Título', type: 'text' },
+      { key: 'punto3_texto', label: 'Punto 3 — Texto', type: 'textarea' },
+      { key: 'punto4_titulo', label: 'Punto 4 — Título', type: 'text' },
+      { key: 'punto4_texto', label: 'Punto 4 — Texto', type: 'textarea' },
+    ]
+  },
+  cta: {
+    label: 'CTA — Sección final',
+    fields: [
+      { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+      { key: 'titulo', label: 'Título', type: 'text' },
+      { key: 'texto', label: 'Texto', type: 'textarea' },
+      { key: 'btn', label: 'Texto del botón', type: 'text' },
+    ]
+  },
+  footer: {
+    label: 'Footer',
+    fields: [
+      { key: 'email', label: 'Email de contacto', type: 'text' },
+      { key: 'copyright', label: 'Texto copyright', type: 'text' },
+    ]
+  }
+};
+
+async function cargarWebCMS() {
+  const container = document.getElementById('web-cms-content');
+  container.innerHTML = '<div style="text-align:center;padding:60px;color:var(--gray-400)">Cargando...</div>';
+
+  const { data, error } = await sb.from('site_content').select('*');
+  if (error) { container.innerHTML = `<div style="color:var(--red);padding:20px">${error.message}</div>`; return; }
+
+  // Indexar por seccion+clave
+  webContent = {};
+  (data || []).forEach(row => {
+    if (!webContent[row.seccion]) webContent[row.seccion] = {};
+    webContent[row.seccion][row.clave] = row.valor || '';
+  });
+
+  // Renderizar
+  container.innerHTML = Object.entries(WEB_SECTIONS).map(([seccion, config]) => `
+    <div class="web-section-card">
+      <div class="web-section-header">
+        <span class="web-section-title">${config.label}</span>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 12px" onclick="guardarSeccionWeb('${seccion}')">Guardar sección</button>
+      </div>
+      <div class="web-section-body">
+        ${config.fields.map(field => `
+          <div class="web-field">
+            <label>${field.label}</label>
+            ${field.type === 'textarea'
+              ? `<textarea id="web-${seccion}-${field.key}" rows="3">${(webContent[seccion] && webContent[seccion][field.key]) || ''}</textarea>`
+              : `<input type="text" id="web-${seccion}-${field.key}" value="${((webContent[seccion] && webContent[seccion][field.key]) || '').replace(/"/g, '&quot;')}">`
+            }
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function guardarSeccionWeb(seccion) {
+  const config = WEB_SECTIONS[seccion];
+  if (!config) return;
+
+  const updates = config.fields.map(field => ({
+    seccion,
+    clave: field.key,
+    valor: document.getElementById(`web-${seccion}-${field.key}`)?.value || '',
+    updated_at: new Date().toISOString()
+  }));
+
+  const { error } = await sb.from('site_content').upsert(updates, { onConflict: 'seccion,clave' });
+  if (error) { showToast('Error: ' + error.message, 'error'); return; }
+  showToast('Seccion guardada');
+}
+
+async function guardarTodoWeb() {
+  for (const seccion of Object.keys(WEB_SECTIONS)) {
+    await guardarSeccionWeb(seccion);
+  }
+  showToast('Todos los cambios guardados');
+}
 </script>
 
 </body>
