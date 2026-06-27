@@ -258,8 +258,7 @@ header img { height: 52px; width: auto; }
   <div class="login-card">
     <img src="logo_imlabs.svg" alt="imlabs" onerror="this.style.display='none'">
     <h2>Panel de administración</h2>
-    <p>Accede con tu cuenta de imlabs</p>
-    <input type="email" id="login-email" placeholder="Email" onkeydown="if(event.key==='Enter')doLogin()">
+    <p>Introduce la contraseña para acceder</p>
     <input type="password" id="login-pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()" id="login-btn">Entrar</button>
     <div class="login-error" id="login-error">Email o contraseña incorrectos</div>
@@ -506,36 +505,23 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let posts = [];
 let currentId = null;
 
-// ══════════ AUTH (Supabase) ══════════
-async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
+// ══════════ AUTH ══════════
+const ADMIN_PASSWORD = 'Imlabs2026!';
+
+function doLogin() {
   const pwd = document.getElementById('login-pwd').value;
-  const btn = document.getElementById('login-btn');
   const err = document.getElementById('login-error');
-  err.style.display = 'none';
-  btn.textContent = 'Entrando...';
-  btn.disabled = true;
-
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pwd });
-
-  btn.textContent = 'Entrar';
-  btn.disabled = false;
-
-  if (error || !data.user) {
+  if (pwd === ADMIN_PASSWORD) {
+    sessionStorage.setItem('imlabs_admin', '1');
+    initAdmin();
+  } else {
     err.style.display = 'block';
-    return;
   }
-  initAdmin();
 }
 
-async function doLogout() {
-  await sb.auth.signOut();
+function doLogout() {
+  sessionStorage.removeItem('imlabs_admin');
   location.reload();
-}
-
-async function checkSession() {
-  const { data } = await sb.auth.getSession();
-  if (data.session) initAdmin();
 }
 
 function initAdmin() {
@@ -544,7 +530,7 @@ function initAdmin() {
   loadPosts();
 }
 
-checkSession();
+if (sessionStorage.getItem('imlabs_admin')) initAdmin();
 
 // ══════════ SECCIONES ══════════
 function showSection(name) {
