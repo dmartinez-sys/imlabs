@@ -331,15 +331,15 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 .sidebar-logo img { height: 48px; width: auto; }
-.sidebar-logo-text { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.4); letter-spacing: .08em; text-transform: uppercase; margin-top: 6px; }
+.sidebar-logo-text { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.4); letter-spacing: .08em; text-transform: uppercase; margin-top: 6px; }
 
 .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
-.sidebar-section-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.3); letter-spacing: .1em; text-transform: uppercase; padding: 12px 8px 6px; }
+.sidebar-section-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.3); letter-spacing: .1em; text-transform: uppercase; padding: 12px 8px 6px; }
 
 .sidebar-item {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 12px; border-radius: 10px;
-  font-size: 14px; font-weight: 600; color: rgba(255,255,255,.6);
+  font-size: 15px; font-weight: 600; color: rgba(255,255,255,.6);
   cursor: pointer; border: none; background: none; text-align: left; width: 100%;
   transition: all .15s; text-decoration: none; position: relative;
 }
@@ -363,7 +363,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
 .sidebar-footer a, .sidebar-footer button {
   display: flex; align-items: center; gap: 10px;
   padding: 9px 12px; border-radius: 8px;
-  font-size: 13px; font-weight: 500; color: rgba(255,255,255,.5);
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.5);
   text-decoration: none; background: none; border: none; cursor: pointer;
   width: 100%; transition: all .15s;
 }
@@ -376,8 +376,8 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
   padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 50;
 }
-.main-header-title { font-size: 16px; font-weight: 700; color: var(--navy); }
-.main-header-sub { font-size: 12px; color: var(--gray-400); margin-top: 1px; }
+.main-header-title { font-size: 18px; font-weight: 700; color: var(--navy); }
+.main-header-sub { font-size: 13px; color: var(--gray-400); margin-top: 1px; }
 .main-header-actions { display: flex; gap: 10px; align-items: center; }
 
 .main-body { flex: 1; padding: 28px 32px; }
@@ -424,19 +424,19 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
         <div class="sidebar-section-label">Contenido</div>
 
         <button class="sidebar-item active" id="nav-blog" onclick="showSection('blog')">
-          <span class="icon">✍</span>
+          <span class="icon"></span>
           <span class="label">Blog</span>
           <span class="sidebar-badge blue" id="badge-blog">—</span>
         </button>
 
         <button class="sidebar-item" id="nav-leads" onclick="showSection('leads')">
-          <span class="icon">👥</span>
+          <span class="icon"></span>
           <span class="label">Leads</span>
           <span class="sidebar-badge" id="badge-leads">—</span>
         </button>
 
         <button class="sidebar-item" id="nav-web" onclick="showSection('web')">
-          <span class="icon">🌐</span>
+          <span class="icon"></span>
           <span class="label">Web</span>
         </button>
       </nav>
@@ -516,7 +516,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray-50);
                           <button onclick="fmt('insertUnorderedList')">• Lista</button>
                           <button onclick="fmt('insertOrderedList')">1. Lista</button>
                           <div class="sep"></div>
-                          <button onclick="fmtBlock('blockquote')">❝</button>
+                          <button onclick="fmtBlock('blockquote')">"</button>
                           <button onclick="insertLink()">🔗</button>
                           <button onclick="fmt('removeFormat')" style="font-size:11px;color:var(--gray-400)">✕ fmt</button>
                         </div>
