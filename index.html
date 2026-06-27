@@ -162,9 +162,9 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
 
 <section>
   <div class="hero fade-up">
-    <div class="hero-eyebrow">Intelligent Marketing</div>
-    <h1>Explota el máximo potencial<br>de tu empresa <em>con IA.</em></h1>
-    <p>imlabs desarrolla aplicaciones con inteligencia artificial que automatizan, captan y hacen crecer empresas que quieren ir más rápido que su competencia.</p>
+    <div class="hero-eyebrow" id="hero-eyebrow">Intelligent Marketing</div>
+    <h1 id="hero-titulo">Explota el máximo potencial de tu empresa <em>con IA.</em></h1>
+    <p id="hero-subtitulo">imlabs desarrolla aplicaciones con inteligencia artificial que automatizan, captan y hacen crecer empresas que quieren ir más rápido que su competencia.</p>
     <div class="hero-ctas">
       <a href="#productos" class="btn-primary">
         Ver nuestras aplicaciones
@@ -191,8 +191,8 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
 <section class="problem fade-up">
   <div class="problem-inner">
     <span class="section-eyebrow">El contexto</span>
-    <h2>Tu competencia ya está usando IA. La pregunta es cuánto te lleva de ventaja.</h2>
-    <p>Las empresas que integran IA en sus procesos crecen más rápido, con menos recursos y mejor margen. No es una tendencia futura: está pasando ahora mismo.</p>
+    <h2 id="contexto-titulo">Tu competencia ya está usando IA. La pregunta es cuánto te lleva de ventaja.</h2>
+    <p id="contexto-texto">Las empresas que integran IA en sus procesos crecen más rápido, con menos recursos y mejor margen. No es una tendencia futura: está pasando ahora mismo.</p>
   </div>
 </section>
 
@@ -284,9 +284,9 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
 
 <section class="cta-section fade-up">
   <div class="cta-inner">
-    <span class="section-eyebrow" style="color:var(--blue)">¿Hablamos?</span>
-    <h2>Tu empresa tiene problemas que la IA puede resolver hoy.</h2>
-    <p>Cuéntanos tu caso. En 30 minutos te decimos si tenemos una solución y cómo encaja en tu operativa.</p>
+    <span class="section-eyebrow" style="color:var(--blue)" id="cta-eyebrow">¿Hablamos?</span>
+    <h2 id="cta-titulo">Tu empresa tiene problemas que la IA puede resolver hoy.</h2>
+    <p id="cta-texto">Cuéntanos tu caso. En 30 minutos te decimos si tenemos una solución y cómo encaja en tu operativa.</p>
     <a href="/contacto" class="btn-primary" style="margin:0 auto;display:inline-flex">
       Contactar con imlabs
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -302,10 +302,10 @@ footer { border-top: 1px solid var(--g100); padding: 36px 32px; }
         <a href="/educabot/">educabot</a>
         <a href="/politica-de-privacidad.html">Privacidad</a>
         <a href="/politica-de-cookies.html">Cookies</a>
-        <a href="mailto:agencia@im.education">agencia@im.education</a>
+        <a href="mailto:agencia@im.education" id="footer-email">agencia@im.education</a>
       </div>
     </div>
-    <div class="footer-copy">© 2025 imlabs — IM Digital Marketing Expert Agency, S.L. · Todos los derechos reservados</div>
+    <div class="footer-copy" id="footer-copyright">© 2025 imlabs — IM Digital Marketing Expert Agency, S.L. · Todos los derechos reservados</div>
   </div>
 </footer>
 
@@ -334,5 +334,42 @@ if (!localStorage.getItem('cookies')) {
 }
 </script>
 <script src='https://crm.imlabs.es/widget/chat.js?bot=asistente-f5577e' async></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async () => {
+  const SUPABASE_URL = "https://jldvhpycybeqqyfyjsjt.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsZHZocHljeWJlcXF5Znlqc2p0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NTE0NDEsImV4cCI6MjA5MjUyNzQ0MX0.On7QpPnXyVs8WnoOrBtsbnkaOGgc-POJUK-LEziLVRY";
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const { data } = await sb.from('site_content').select('seccion,clave,valor');
+  if (!data) return;
+
+  const content = {};
+  data.forEach(r => {
+    if (!content[r.seccion]) content[r.seccion] = {};
+    content[r.seccion][r.clave] = r.valor;
+  });
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+  const setHref = (id, val) => { const el = document.getElementById(id); if (el && val) { el.href = 'mailto:' + val; el.textContent = val; } };
+
+  const c = content;
+  set('hero-eyebrow', c.hero?.eyebrow);
+  if (c.hero?.titulo) {
+    const el = document.getElementById('hero-titulo');
+    if (el) el.innerHTML = c.hero.titulo.replace('con IA.', '<em>con IA.</em>');
+  }
+  set('hero-subtitulo', c.hero?.subtitulo);
+  set('contexto-titulo', c.contexto?.titulo);
+  set('contexto-texto', c.contexto?.texto);
+  set('cta-eyebrow', c.cta?.eyebrow);
+  set('cta-titulo', c.cta?.titulo);
+  set('cta-texto', c.cta?.texto);
+  setHref('footer-email', c.footer?.email);
+  set('footer-copyright', c.footer?.copyright);
+})();
+</script>
+
 </body>
 </html>
